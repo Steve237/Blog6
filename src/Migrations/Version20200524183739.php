@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200514193156 extends AbstractMigration
+final class Version20200524183739 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,10 +22,9 @@ final class Version20200514193156 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE groupe (id INT AUTO_INCREMENT NOT NULL, libelle VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE figures ADD groupe_id INT NOT NULL');
-        $this->addSql('ALTER TABLE figures ADD CONSTRAINT FK_ABF1009A7A45358C FOREIGN KEY (groupe_id) REFERENCES groupe (id)');
-        $this->addSql('CREATE INDEX IDX_ABF1009A7A45358C ON figures (groupe_id)');
+        $this->addSql('ALTER TABLE image ADD figure_id INT DEFAULT NULL, CHANGE image_figure image_figure VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045F5C011B5 FOREIGN KEY (figure_id) REFERENCES figures (id)');
+        $this->addSql('CREATE INDEX IDX_C53D045F5C011B5 ON image (figure_id)');
     }
 
     public function down(Schema $schema) : void
@@ -33,9 +32,8 @@ final class Version20200514193156 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE figures DROP FOREIGN KEY FK_ABF1009A7A45358C');
-        $this->addSql('DROP TABLE groupe');
-        $this->addSql('DROP INDEX IDX_ABF1009A7A45358C ON figures');
-        $this->addSql('ALTER TABLE figures DROP groupe_id');
+        $this->addSql('ALTER TABLE image DROP FOREIGN KEY FK_C53D045F5C011B5');
+        $this->addSql('DROP INDEX IDX_C53D045F5C011B5 ON image');
+        $this->addSql('ALTER TABLE image DROP figure_id, CHANGE image_figure image_figure VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
     }
 }

@@ -13,23 +13,28 @@
 
 
 <div class="container">
-
     <section>
+        
+        <a class="btn btn-primary"  style="position:absolute;left:200px;top:840px;">Ajouter une figure</a>
         <h2 id="listefigure" style="margin-top:60px;margin-bottom:30px;text-align:center;text-decoration:underline"> Liste des figures </h2>
-    
         <div class="card-deck">
         
             {% for figure in figures %}
-        
+           
+            
             <div class="card">
-                <img src="{{asset('img/' ~ figure.image1)}}" class="card-img-top" alt="...">
+               
+                <img src="{{asset('img/' ~ figure.imageTop )}}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <a href="{{path('figure', {'id' : figure.id})}}"><h5 class="card-title">{{figure.nomFigure}}</h5></a>
                     <p class="card-text">{{figure.description}}</p>
                 </div>
             </div>
+
             {% endfor %}
+            
         </div>
+        
         <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top:8px">Voir plus</button>
     </section>
 </div>

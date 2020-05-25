@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FiguresRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,25 +30,31 @@ class Figures
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image1;
-
-     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image2;
-    
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $video;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
      */
     private $groupe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure")
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure")
+     */
+    private $videos;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageTop;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,42 +85,6 @@ class Figures
         return $this;
     }
 
-    public function getImage1(): ?string
-    {
-        return $this->image1;
-    }
-
-    public function getImage2(): ?string
-    {
-        return $this->image2;
-    }
-
-    public function setImage1(string $image1): self
-    {
-        $this->image1 = $image1;
-
-        return $this;
-    }
-
-    public function setImage2(string $image2): self
-    {
-        $this->image2 = $image2;
-
-        return $this;
-    }
-    
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): self
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
     public function getGroupe(): ?Groupe
     {
         return $this->groupe;
@@ -124,4 +96,80 @@ class Figures
 
         return $this;
     }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getFigure() === $this) {
+                $image->setFigure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getFigure() === $this) {
+                $video->setFigure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getImageTop(): ?string
+    {
+        return $this->imageTop;
+    }
+
+    public function setImageTop(?string $imageTop): self
+    {
+        $this->imageTop = $imageTop;
+
+        return $this;
+    }
+
+
 }
