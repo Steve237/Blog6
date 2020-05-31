@@ -3,24 +3,35 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{asset("css/main.css")}}">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        {% endblock %}
     </head>
+    
     <body>
         <ul class="nav justify-content-end navbar navbar-dark bg-primary">
+            
             <li class="nav-item">
                 <a class="nav-link active" style="color:white" href="{{path("accueil")}}">Accueil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" style="color:white" href="">Figures</a>
             </li>
+            
+            {% if not app.user %}
             <li class="nav-item">
-                <a class="nav-link" style="color:white" href="#">Inscription</a>
+                <a class="nav-link" style="color:white" href="{{path("inscription")}}">Inscription</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:white" href="#">Connexion</a>
+                <a class="nav-link" style="color:white" href="{{path("connexion")}}">Connexion</a>
             </li>
+            {% else %}
+            
+            <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{{path("deconnexion")}}">Deconnexion</a>
+            </li>
+            {% endif %}
         </ul>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

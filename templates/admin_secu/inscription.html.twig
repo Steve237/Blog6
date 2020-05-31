@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  
+Formulaire d'inscription
+{% endblock %}
+
+{% block body %}
+<div class="container">
+   
+   <h1 style="text-align:center;margin-top:50px">Formulaire d'inscription</h1>
+   
+   
+   <div style="margin-top:20px">
+      
+      {{form_start(form)}} 
+
+      {{form_row(form.username, {"attr" : {"placeholder":"Saisissez votre pseudo"}, "label":"Pseudo"})}} 
+      {{form_row(form.email, {"attr" : {"placeholder":"Saisissez votre email"}, "label":"Email"})}} 
+      {{form_row(form.password, {"attr" : {"placeholder":"Saisissez votre mot de passe"}, "label":"Mot de passe"})}} 
+      {{form_row(form.verifpass, {"attr" : {"placeholder":"Confirmez votre mot de passe"}, "label":"Confirmation mot de passe"})}} 
+      {{form_widget(form)}}
+      <input type="submit" class="btn btn-primary" value="Valider">
+      {{form_end(form)}} 
+   
+     
+   </div>
+
+</div>
+{% endblock %}
