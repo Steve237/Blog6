@@ -3,8 +3,8 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Users;
+use App\Form\ResetPassType;
 use App\Form\InscriptionType;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class AdminSecuController extends AbstractController
 {
@@ -64,6 +65,7 @@ class AdminSecuController extends AbstractController
      */
     public function connexion(AuthenticationUtils $util) {
 
+
         return $this->render("admin_secu/connexion.html.twig", [
             "lastUserName" => $util->getLastUsername(),
             "error" => $util->getLastAuthenticationError()
@@ -104,4 +106,93 @@ class AdminSecuController extends AbstractController
         return $this->redirectToRoute('accueil');
     }
 
+
+    /**
+     * @Route("/recoverypass", name="recoverypassword")
+     */
+    public function recoveryPass(Request $request, UsersRepository $usersRepo, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator, 
+    EntityManagerInterface $objectManager) {
+        
+        //on créé le formulaire
+        $form = $this->createForm(ResetPassType::class);
+
+        //on traite le formulaire
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            //on récupère les données
+            $datas = $form->getData();
+
+            //on recherche si un utilisateur a cet email
+            $user = $usersRepo->findOneByEmail($datas['email']);
+
+            if(!$user) {
+
+                throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+            }
+
+            $token = $tokenGenerator->generateToken();
+
+            try{
+                $user->setResetToken($token);
+                $objectManager->persist($user);
+                $objectManager->flush();
+        
+        
+        
+            }catch(\Exception $e) {
+            
+                $this->addFlash('warning', 'Une erreur est survenue: '. $e->getMessage());
+                return $this->redirectToRoute('connexion');
+            }
+    
+            $message = (new \Swift_Message('Mot de passe oublié'))
+            ->setFrom('adouessono@yahoo.fr')
+            ->setTo($user->getEmail())
+            ->setBody($this->renderView('email/updatepass.html.twig', ['token' => $token]), 'text/html')
+            ;
+
+            //On envoie l'email
+            $mailer->send($message);
+            return $this->redirectToRoute('connexion');
+            
+        }
+        
+
+        return $this->render('admin_secu/recoverypass.html.twig', ['emailForm' => $form->createView()]);
+    }
+
+
+    
+    
+    /**
+     * @Route("/updatepass/{token}", name="updatepass")
+     */
+    public function updatePass($token, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $objectManager) {
+        
+        //On cherche l'utilisateur avec le token fourni
+        $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['reset_token' => $token]);
+
+        if(!$user){
+            
+            $this->addFlash('danger', 'Token Inconnu');
+            return $this->redirectToRoute('connexion');
+        }
+
+        if($request->isMethod('POST')){
+
+            $user->setResetToken(null);
+            $user->setPassword($passwordEncoder->encodePassword($user,  $request->request->get('password')));
+            $objectManager->persist($user);
+            $objectManager->flush();
+            $this->addFlash('message', 'Mot de passe modifié avec succès');
+            return $this->redirectToRoute('connexion');
+        
+        
+        
+        } else {
+            
+            return $this->render('admin_secu/newpass.html.twig', ['token' => $token]);
+        }
+    }
 }

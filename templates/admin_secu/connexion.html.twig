@@ -10,11 +10,31 @@ Formulaire de connexion
    <h1 style="text-align:center;margin-top:50px">Formulaire de connexion</h1>
    <div style="margin-top:20px">
 
+
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning" role="alert">
+            {{ warning }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger" role="alert">
+        {{ danger }}
+    </div>
+    {% endfor %}
+
     {% if error %}
     <div class="alert alert-danger">
         {{ error.messageKey | trans(error.messagedata, 'security')}}
     </div>
     {% endif %}
+    
     <form action="{{path('connexion')}}" method="post">
         <div class="form-group">
             <label>Login : </label>
@@ -22,10 +42,11 @@ Formulaire de connexion
         </div>
         <div class="form-group">
             <label>Password : </label>
-            <input type="text" required name="_password" class="form-control">
+            <input type="password" required name="_password" class="form-control">
         </div>
         <input type="submit" class="btn btn-primary" value="Se connecter">
     </form>
+    <a style="color:white" href="{{path("recoverypassword")}}">Mot de passe oublié?</a>
     </div>
 
 </div>
