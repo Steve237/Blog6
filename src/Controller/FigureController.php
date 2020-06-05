@@ -42,7 +42,7 @@ class FigureController extends AbstractController
     }
 
     /**
-    * @Route("/figure/modif/{id}", name="modification_imageTop")
+    * @Route("/figure/modif/{id}", name="modification_imageTop", methods="GET|POST")
     */
     public function Modification(Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -94,5 +94,6 @@ class FigureController extends AbstractController
         $objectManager->flush();
         return $this->redirectToRoute("accueil");
     }
+
 
 }

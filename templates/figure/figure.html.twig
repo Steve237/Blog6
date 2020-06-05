@@ -7,7 +7,7 @@
     <div class="card mb-3" style="margin-top:100px">
         
        
-        <img src="{{asset('img/' ~ figures.imageTop)}}" class="card-img-top" alt="figure_snowboard">
+        <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top" alt="figure_snowboard">
         
         <div style="position:absolute;top:30px;right:80px;">
             
@@ -40,7 +40,7 @@
                 <div class="col-md-4">
                     {% for image in figures.images %}
 
-                    <img src="{{asset('img/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard" title="Cliquez pour agrandir" data-toggle="modal" data-target="#exampleModalCenter"></a>
+                    <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard" title="Cliquez pour agrandir" data-toggle="modal" data-target="#exampleModalCenter"></a>
                 
                     <a href="{{path('modification_image', {'id': figures.id})}}">
                         <button type="button" class="btn btn-outline-primary" style="margin-top:8px">
@@ -76,7 +76,7 @@
                             
                             
                             <div class="modal-body">
-                                <img src="{{asset('img/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
+                                <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
                             </div>
                             
                             <div class="modal-footer">
@@ -88,7 +88,7 @@
                
                 <div class="col-md-4">
                
-                    <img src="{{asset('img/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard" title="Cliquez pour agrandir" data-toggle="modal" data-target="#exampleModalCenter">
+                    <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard" title="Cliquez pour agrandir" data-toggle="modal" data-target="#exampleModalCenter">
                 
                     <a href="{{path('modification_image', {'id': figures.id})}}">
                         <button type="button" class="btn btn-outline-primary" style="margin-top:8px">
@@ -122,7 +122,7 @@
                             </div>
         
                             <div class="modal-body">
-                                <img src="{{asset('img/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
+                                <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

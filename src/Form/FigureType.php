@@ -6,6 +6,7 @@ use App\Entity\Figures;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class FigureType extends AbstractType
 {
@@ -16,6 +17,7 @@ class FigureType extends AbstractType
             ->add('description')
             ->add('groupe')
             ->add('imageTop')
+            ->add('imageFile', FileType::class, ['required' => false])
         ;
     }
 

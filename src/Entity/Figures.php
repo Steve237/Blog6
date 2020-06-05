@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\FiguresRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
- * @ORM\Entity(repositoryClass=FiguresRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\FiguresRepository")
+ * @Vich\Uploadable
  */
 class Figures
 {
@@ -50,13 +55,42 @@ class Figures
      */
     private $imageTop;
 
+    /**
+    * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageTop")
+    */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+        
+        if($this->imageFile instanceof UploadedFile){
+
+            $this->updated_at = new \DateTime('Now');
+        }
+        
+        return $this;
+
+    }
+
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
 
-    public function getId(): ?int
+        public function getId(): ?int
     {
         return $this->id;
     }
@@ -171,5 +205,19 @@ class Figures
         return $this;
     }
 
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
 
 }
+
+
+

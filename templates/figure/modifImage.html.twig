@@ -11,15 +11,14 @@ Modification de l'image
    
    {% for image in figures.images %}
   
-   <img src="{{asset('img/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
+   <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top" alt="figure_snowboard">
    
-   
-  
    <div style="margin-top:20px">
       
-      {{form_start(form)}} 
-      {{form_widget(form)}}
-      <input type="submit" class="btn btn-primary" value="enregistrer">
+      {{form_start(form)}}
+         {{ form_row(form.imageFile) }}
+         {{form_widget(form)}}
+         <input type="submit" class="btn btn-primary" value="enregistrer">
       {{form_end(form)}} 
    
       {% endfor %}

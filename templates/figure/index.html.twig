@@ -5,9 +5,9 @@
 {% block body %}
 <section>
 
-    <img src="{{asset("img/snow.jpg")}}" style="width:100%">
+    <img src="{{asset("img/figure/snow.jpg")}}" style="width:100%">
 
-    <a href="#listefigure"><img src="{{asset("img/scroll_down.png")}}" style="position:absolute;right:1px;bottom:3px"></a>    
+    <a href="#listefigure"><img src="{{asset("img/figure/scroll_down.png")}}" style="position:absolute;right:1px;bottom:3px"></a>    
 
 </section>
 
@@ -15,6 +15,7 @@
 <div class="container">
     <section>
         
+
         <a class="btn btn-primary"  style="position:absolute;left:200px;top:840px;">Ajouter une figure</a>
         <h2 id="listefigure" style="margin-top:60px;margin-bottom:30px;text-align:center;text-decoration:underline"> Liste des figures </h2>
         <div class="row">
@@ -26,7 +27,7 @@
                 <div class="col-md-3">
             <div class="card" style="height:550px;margin-top:15px">
                
-                <img src="{{asset('img/' ~ figure.imageTop )}}" class="card-img-top" alt="...">
+                <img src="{{asset('img/figure/' ~ figure.imageTop )}}" class="card-img-top imagetop" alt="...">
                 <div class="card-body">
                     <a href="{{path('figure', {'id' : figure.id})}}"><h5 class="card-title">{{figure.nomFigure}}</h5></a>
                     <p class="card-text">{{figure.description}}</p>

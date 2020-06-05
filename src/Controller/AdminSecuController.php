@@ -65,7 +65,6 @@ class AdminSecuController extends AbstractController
      */
     public function connexion(AuthenticationUtils $util) {
 
-
         return $this->render("admin_secu/connexion.html.twig", [
             "lastUserName" => $util->getLastUsername(),
             "error" => $util->getLastAuthenticationError()
@@ -154,6 +153,7 @@ class AdminSecuController extends AbstractController
 
             //On envoie l'email
             $mailer->send($message);
+            $this->addFlash('message', 'On vous a envoyé un mail pour réinitialiser votre mot de passe');
             return $this->redirectToRoute('connexion');
             
         }
