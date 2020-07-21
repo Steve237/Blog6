@@ -91,7 +91,4 @@ class Groupe
            return $this->getLibelle();
         }
 
-
-
-
 }

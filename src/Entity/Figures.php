@@ -41,7 +41,7 @@ class Figures
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 
@@ -90,7 +90,7 @@ class Figures
         $this->videos = new ArrayCollection();
     }
 
-        public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -132,8 +132,8 @@ class Figures
     }
 
     /**
-     * @return Collection|Image[]
-     */
+    * @return Collection|Image[]
+    */
     public function getImages(): Collection
     {
         return $this->images;

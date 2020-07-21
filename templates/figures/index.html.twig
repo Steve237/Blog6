@@ -16,23 +16,24 @@
     <section>
         
 
-        <a class="btn btn-primary"  style="position:absolute;left:200px;top:840px;">Ajouter une figure</a>
-        <h2 id="listefigure" style="margin-top:60px;margin-bottom:30px;text-align:center;text-decoration:underline"> Liste des figures </h2>
+        <a href="{{path('create')}}" class="btn btn-primary">Ajouter une figure</a>
+        <h2 id="listefigure"> Liste des figures </h2>
         <div class="row">
         <div class="card-deck">
-        
             {% for figure in figures %}
            
         
-                <div class="col-md-3">
+            <div class="col-md-3">
             <div class="card" style="height:550px;margin-top:15px">
                
-                <img src="{{asset('img/figure/' ~ figure.imageTop )}}" class="card-img-top imagetop" alt="...">
+
+                <img src="{{asset('img/figure/' ~ figure.imageTop)}}" class="card-img-top imagetop" alt="...">
                 <div class="card-body">
                     <a href="{{path('figure', {'id' : figure.id})}}"><h5 class="card-title">{{figure.nomFigure}}</h5></a>
                     <p class="card-text">{{figure.description}}</p>
                 </div>
-            
+                
+                <div style="margin-top:5px;background-color:red;">
                 <a href="">
                     <button type="button" class="btn btn-outline-primary" style="position:absolute;left:5px;bottom:5px">
                         <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +42,7 @@
                         </svg>
                     </button>
                 </a>
+                
             
                 <form method="POST" action="" style="position:absolute;left:50px;bottom:5px">
                     <input type="hidden" name="_method" value="delete">
@@ -51,14 +53,11 @@
                         </svg>
                     </button>
                 </form>
-            
-            
+                </div>
             </div>
-            
             </div>
 
             {% endfor %}
-            
         </div>
         </div>
         

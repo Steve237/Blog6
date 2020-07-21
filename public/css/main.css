@@ -5,3 +5,27 @@
     object-fit:cover;
 }
 
+.bodypost {
+
+    margin-bottom:20px;
+    
+}
+
+.imagesize {
+
+    height:300px;
+}
+
+.titreform {
+
+    margin-top: 100px;
+    text-align:center;
+
+}
+
+.imagetopsize {
+
+   
+    height:600px;
+}
+
