@@ -39,6 +39,7 @@ class FiguresController extends AbstractController
         ]);
     }
 
+    
     /**
      * @Route("/admin/create", name="create", methods={"GET","POST"})
      * @return Response
@@ -74,7 +75,13 @@ class FiguresController extends AbstractController
                 $entityManager->persist($figure);
                 $entityManager->flush();
 
+                $this->addFlash(
+                    'success',
+                    "<strong>La figure a bien été ajouté!</strong>"
+                );
+
                 return $this->redirectToRoute('accueil');
+
         }
 
         return $this->render('figures/create.html.twig', [
@@ -83,6 +90,7 @@ class FiguresController extends AbstractController
         ]);
     }
 
+    
     /**
      * @Route("/new", name="figures_new", methods={"GET","POST"})
      */

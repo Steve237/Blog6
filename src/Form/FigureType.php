@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class FigureType extends AbstractType
 {
@@ -14,7 +15,7 @@ class FigureType extends AbstractType
     {
         $builder
             ->add('nomFigure')
-            ->add('description')
+            ->add('description', TextareaType::class)
             ->add('groupe')
             ->add('imageFile', FileType::class, ['required' => false])
             //on ajoute le champs image dans le formulaire

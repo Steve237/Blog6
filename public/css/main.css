@@ -11,6 +11,16 @@
     
 }
 
+
+#listefigure {
+
+ text-align:center;
+ margin-top : 20px;
+
+
+}
+
+
 .imagesize {
 
     height:300px;
@@ -29,3 +39,8 @@
     height:600px;
 }
 
+.valid-creation {
+
+    margin-top: 50px;
+
+}
