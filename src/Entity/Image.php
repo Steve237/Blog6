@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImageRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -19,6 +20,7 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlanK
      */
     private $imageFigure;
 

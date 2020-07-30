@@ -29,18 +29,16 @@
         </form>
         
         <div class="card-body">
-            <button type="button" class="btn btn-outline-primary"><a href="{{path('figures_edit', {'id': figures.id})}}">Ajouter image</a></button>
-
+            <button type="button" class="btn btn-outline-primary"><a href="">Ajouter image</a></button>
+            
             <div class="row">
+                
                 {% for image in figures.images %}
                 <div class="col-md-4 bodypost">
-
-                    
-
                     <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" style="height:300px;" alt="figure_snowboard"></a>
                     <div class="row">
                         <div class="col-md-2">
-                    <a href="{{path('figures_edit', {'id': figures.id})}}">
+                    <a href="">
                         <button type="button" class="btn btn-outline-primary">
                             <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
@@ -60,23 +58,20 @@
                 {% endfor %} 
             </div>
            
-
-
-                <div class="card-body"> 
-               
+            <div class="card-body"> 
                 <h2 class="card-title" style="text-align:center;text-decoration:underline">{{figures.nomFigure}}</h2>
                 <p class="card-text" style="text-align:justify;padding:50px">{{figures.description}}</p>
                 <p class="card-text" style="text-align:center;font-size:medium">Catégorie : {{figures.groupe.libelle}}</p>
               
-                </div>
-        
-        <form class="form-inline">
-            <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols="90" style="margin:50px"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Laissez un commentaire</button>
-        </form>
+        
+            <form class="form-inline">
+                <div class="form-group">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols="90" style="margin:50px"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Laissez un commentaire</button>
+             </form>
+        </div>
     </div>
 </div>
-
 {% endblock %}

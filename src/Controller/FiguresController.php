@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FiguresController extends AbstractController
 {
     /**
+     * Permet d'afficher la liste des articles sur la page accueil
      * @Route("/", name="accueil", methods={"GET"})
      */
     public function index(FiguresRepository $figuresRepository, ImageRepository $imagerepo): Response
@@ -30,6 +31,7 @@ class FiguresController extends AbstractController
     }
 
     /**
+     * Permet d'afficher une page spécifique
      * @Route("/{id}", name="figure", methods={"GET"})
      */
     public function show(Figures $figures): Response
@@ -41,37 +43,24 @@ class FiguresController extends AbstractController
 
     
     /**
+     * Permet d'ajouter une nouvelle figure
      * @Route("/admin/create", name="create", methods={"GET","POST"})
      * @return Response
      */
-    public function Create(Request $request): Response {
+    public function Create(Request $request, EntityManagerInterface $entityManager): Response {
 
         $figure = new Figures();
+
         $form = $this->createForm(FigureType::class, $figure);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            //On récupère les images transmises
-            $images = $form->get('image')->getData();
+            foreach($figure->getImages() as $image) {
 
-            //On boucle sur les images
-            foreach($images as $image) {
-                //on génère un nouveau fichier
-                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-            
-                //On copie le fichier dans le dossier img/figure
-                $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-                );
-                
-                //On stocke l'image dans la base de données
-                $img = new Image();
-                $img->setImageFigure($fichier);
-                $figure->addImage($img);
+                $image->setFigure($figure);
+                $entityManager->persist($image);
             }
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($figure);
                 $entityManager->flush();
 
@@ -81,7 +70,6 @@ class FiguresController extends AbstractController
                 );
 
                 return $this->redirectToRoute('accueil');
-
         }
 
         return $this->render('figures/create.html.twig', [
@@ -90,92 +78,40 @@ class FiguresController extends AbstractController
         ]);
     }
 
-    
-    /**
-     * @Route("/new", name="figures_new", methods={"GET","POST"})
+
+    /** Permet d'afficher le formulaire de modification
+     * @Route("/admin/{id}/update", name="update")
      */
-    public function new(Request $request): Response
-    {
-        $figure = new Figures();
-        $form = $this->createForm(FiguresType::class, $figure);
+    public function update(Figures $figure, Request $request, EntityManagerInterface $entityManager) {
+
+        $form = $this->createForm(FigureType::class, $figure);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            //On récupère les images transmises
-            $images = $form->get('image')->getData();
+            foreach($figure->getImages() as $image) {
 
-            //On boucle sur les images
-            foreach($images as $image) {
-                //on génère un nouveau fichier
-                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-            
-                //On copie le fichier dans le dossier img/figure
-                $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-                );
-                
-                //On stocke l'image dans la base de données
-                $img = new Image();
-                $img->setImageFigure($fichier);
-                $figure->addImage($img);
+                $image->setFigure($figure);
+                $entityManager->persist($image);
             }
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($figure);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('figures_index');
-        }
-
-        return $this->render('figures/new.html.twig', [
-            'figure' => $figure,
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    /**
-     * @Route("/{id}/edit", name="figures_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Figures $figure): Response
-    {
-        $form = $this->createForm(FiguresType::class, $figure);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            //On récupère les images transmises
-            $images = $form->get('image')->getData();
-
-            //On boucle sur les images
-            foreach($images as $image) {
-                //on génère un nouveau fichier
-                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-            
-                //On copie le fichier dans le dossier img/figure
-                $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
+                $this->addFlash(
+                    'success',
+                    "<strong>La figure a bien été modifié!</strong>"
                 );
-                
-                //On stocke l'image dans la base de données
-                $img = new Image();
-                $img->setImageFigure($fichier);
-                $figure->addImage($img);
-            }
-            
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('figures_index');
+                return $this->redirectToRoute('accueil');
         }
 
         return $this->render('figures/edit.html.twig', [
-            'figure' => $figure,
-            'form' => $form->createView(),
-        ]);
-    }
 
+            'form' => $form->createView()
+        ]);
+
+    }
+    
     /**
      * @Route("/{id}", name="figures_delete", methods={"DELETE"})
      */
@@ -192,6 +128,7 @@ class FiguresController extends AbstractController
 
 
     /**
+    * Permet de modifier l'image à la une
     * @Route("/figure/modif/{id}", name="modification_imageTop", methods="GET|POST")
     */
     public function Modification(Figures $figures, Request $request, EntityManagerInterface $objectManager)

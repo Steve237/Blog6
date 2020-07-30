@@ -3,17 +3,23 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FiguresRepository")
  * @Vich\Uploadable
+ * @UniqueEntity(
+ *  fields={"nomFigure"},
+ *  message="Une autre figure possède déjà ce titre, merci de le modifier"
+ * )
  */
 class Figures
 {
@@ -25,38 +31,47 @@ class Figures
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Length(max=50, maxMessage="le titre doit contenir 50 caractères maximum!")
+     * @Assert\NotBlank
      */
     private $nomFigure;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
+     * @Assert\Length(min=5, minMessage="la description doit contenir au moins 5 caractères!")
+     * @Assert\NotBlank
+    */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
-     */
+     * @Assert\NotBlank
+    */
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", orphanRemoval=true, cascade={"persist"})
-     */
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", orphanRemoval=true)
+     * @Assert\Valid()
+    */
     private $images;
 
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure")
-     */
+     * @Assert\NotBlank
+    */
     private $videos;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     */
+     * @Assert\NotBlank
+    */
     private $imageTop;
 
     /**
-    * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageTop")
+     * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageTop")
+     * @Assert\NotBlank
     */
     private $imageFile;
 
@@ -82,7 +97,6 @@ class Figures
         return $this;
 
     }
-
 
     public function __construct()
     {
