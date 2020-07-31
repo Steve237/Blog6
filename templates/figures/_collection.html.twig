@@ -20,7 +20,9 @@
             <div class="col-10">
                 <div class="row">
                     <div class="col">
-                        {{form_widget(form.imageFigure)}}
+                        {% if value %}
+                        <img src="{{asset('img/figure/' ~ value.imageFigure)}}" class="img-fluid" alt="image">
+                        {% endif %}
                         {{form_errors(form.imageFigure)}}
 
                     </div>
