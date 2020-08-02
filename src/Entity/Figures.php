@@ -11,8 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FiguresRepository")
  * @Vich\Uploadable
@@ -71,7 +69,7 @@ class Figures
 
     /**
      * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageTop")
-     * @Assert\NotBlank
+     * 
     */
     private $imageFile;
 

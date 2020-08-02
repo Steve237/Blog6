@@ -6,12 +6,11 @@ use App\Entity\Figures;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class FigureType extends AbstractType
+class UpdateFigureType extends AbstractType
 {   
 
     /**
@@ -36,7 +35,6 @@ class FigureType extends AbstractType
             ->add('nomFigure', TextType::class, $this->getConfiguration('Nom de la figure', 'Entrez le nom de la figure'))
             ->add('description', TextareaType::class)
             ->add('groupe')
-            ->add('imageFile', FileType::class, $this->getConfiguration('Image à la une', 'Ajouter une image à la une'), ['required' => false]) 
             ->add(
                 'images', 
                 CollectionType::class, 

@@ -6,6 +6,9 @@ use App\Entity\Image;
 use App\Entity\Figures;
 use App\Form\FigureType;
 use App\Form\FiguresType;
+use App\Form\ImageTopType;
+use App\Form\AddFigureType;
+use App\Form\UpdateFigureType;
 use App\Repository\ImageRepository;
 use App\Repository\FiguresRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -51,7 +54,7 @@ class FiguresController extends AbstractController
 
         $figure = new Figures();
 
-        $form = $this->createForm(FigureType::class, $figure);
+        $form = $this->createForm(AddFigureType::class, $figure);
         
         $form->handleRequest($request);
 
@@ -84,7 +87,7 @@ class FiguresController extends AbstractController
      */
     public function update(Figures $figure, Request $request, EntityManagerInterface $entityManager) {
 
-        $form = $this->createForm(FigureType::class, $figure);
+        $form = $this->createForm(UpdateFigureType::class, $figure);
 
         $form->handleRequest($request);
 
@@ -113,17 +116,20 @@ class FiguresController extends AbstractController
     }
     
     /**
-     * @Route("/{id}", name="figures_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Figures $figure): Response
+     * @Route("/admin/{id}/delete", name="figure_delete")
+     * 
+    */
+    public function delete(Figures $figure, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$figure->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($figure);
-            $entityManager->flush();
-        }
+       $entityManager->remove($figure);
+       $entityManager->flush();
 
-        return $this->redirectToRoute('figures_index');
+       $this->addFlash(
+        'success',
+        "L'annonce a bien été supprimé"
+        );
+        
+        return $this->redirectToRoute('accueil');
     }
 
 
@@ -142,7 +148,7 @@ class FiguresController extends AbstractController
             $objectManager->flush();
             return $this->redirectToRoute("accueil");
         }
-        return $this->render('figure/modifImage.html.twig', [
+        return $this->render('figures/modifImage.html.twig', [
             "figures" => $figures,
             "form" => $form->createView()
 
