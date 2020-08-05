@@ -63,13 +63,11 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank
     */
     private $imageTop;
 
     /**
      * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageTop")
-     * 
     */
     private $imageFile;
 

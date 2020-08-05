@@ -35,15 +35,6 @@ class UpdateFigureType extends AbstractType
             ->add('nomFigure', TextType::class, $this->getConfiguration('Nom de la figure', 'Entrez le nom de la figure'))
             ->add('description', TextareaType::class)
             ->add('groupe')
-            ->add(
-                'images', 
-                CollectionType::class, 
-                [
-                    'entry_type' => ImageType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true
-                ]
-            )
         ;
     }
 

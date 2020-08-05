@@ -44,3 +44,8 @@
     margin-top: 50px;
 
 }
+
+.conteneur
+{
+    display: flex;
+}

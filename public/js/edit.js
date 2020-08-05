@@ -1,8 +1,6 @@
-    function handleDeleteButtons() {
-
-        $('button[data-action="delete"]').click(function(){
+$(document).ready(function() {
+    $('[data-action="delete"]').on('click', function(){
             const target = this.dataset.target;
             $(target).remove();
         });
-    }
-    handleDeleteButtons();
+});

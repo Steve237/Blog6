@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  
+Modification de l'image
+{% endblock %}
+
+{% block body %}
+<div class="container">
+   
+   <h1 style="text-align:center;margin-top:50px">Modifier l'image</h1>
+   
+  
+   <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard">
+   
+   
+   <div style="margin-top:20px">
+      
+      {{form_start(form)}}
+         {{form_widget(form)}}
+         <input type="submit" class="btn btn-primary" value="enregistrer">
+      {{form_end(form)}} 
+   </div>
+</div>
+{% endblock %}

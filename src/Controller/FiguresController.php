@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Figures;
+use App\Form\ImageType;
 use App\Form\FigureType;
 use App\Form\FiguresType;
 use App\Form\ImageTopType;
@@ -76,13 +77,14 @@ class FiguresController extends AbstractController
         }
 
         return $this->render('figures/create.html.twig', [
-            'figure' => $figure,
+            'figures' => $figure,
             'form' => $form->createView(),
         ]);
     }
 
 
-    /** Permet d'afficher le formulaire de modification
+    /** 
+     * Permet d'afficher le formulaire de modification
      * @Route("/admin/{id}/update", name="update")
      */
     public function update(Figures $figure, Request $request, EntityManagerInterface $entityManager) {
@@ -110,12 +112,14 @@ class FiguresController extends AbstractController
 
         return $this->render('figures/edit.html.twig', [
 
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'figures' => $figure
         ]);
 
     }
     
     /**
+     * Permet de supprimer une annonce
      * @Route("/admin/{id}/delete", name="figure_delete")
      * 
     */
@@ -132,10 +136,49 @@ class FiguresController extends AbstractController
         return $this->redirectToRoute('accueil');
     }
 
+    /**
+     * Permet de supprimer une image
+     * @Route("/admin/{id}/delete_image", name="image_delete")
+     * 
+    */
+    public function deleteImage(Image $image, EntityManagerInterface $entityManager): Response
+    {
+       $entityManager->remove($image);
+       $entityManager->flush();
+
+       $this->addFlash(
+        'success',
+        "L'image a bien été supprimé"
+        );
+        
+        return $this->redirectToRoute('accueil');
+    }
 
     /**
-    * Permet de modifier l'image à la une
-    * @Route("/figure/modif/{id}", name="modification_imageTop", methods="GET|POST")
+     * Permet de modifier l'image
+     * @Route("/figure/update/{id}", name="update_image", methods="GET|POST")
+    */
+    public function UpdateImage(Image $image, Request $request, EntityManagerInterface $objectManager)
+    {   
+
+        $form = $this->createForm(ImageType::class, $image);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $objectManager->persist($image);
+            $objectManager->flush();
+            return $this->redirectToRoute("accueil");
+        }
+        return $this->render('figures/updateimage.html.twig', [
+            "image" => $image,
+            "form" => $form->createView()
+
+        ]);
+    }
+    
+    /**
+     * Permet de modifier l'image à la une
+     * @Route("/figure/modif/{id}", name="modification_imageTop", methods="GET|POST")
     */
     public function Modification(Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -154,4 +197,5 @@ class FiguresController extends AbstractController
 
         ]);
     }
+
 }
