@@ -56,8 +56,8 @@ class Figures
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure")
-     * @Assert\NotBlank
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure", orphanRemoval=true)
+     * @Assert\Valid()
     */
     private $videos;
 

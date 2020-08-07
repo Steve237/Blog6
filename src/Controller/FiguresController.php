@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\Video;
 use App\Entity\Figures;
 use App\Form\ImageType;
+use App\Form\VideoType;
 use App\Form\FigureType;
 use App\Form\FiguresType;
 use App\Form\ImageTopType;
@@ -41,7 +43,7 @@ class FiguresController extends AbstractController
     public function show(Figures $figures): Response
     {
         return $this->render('figures/show.html.twig', [
-            'figures' => $figures,
+            'figures' => $figures
         ]);
     }
 
@@ -65,6 +67,13 @@ class FiguresController extends AbstractController
                 $image->setFigure($figure);
                 $entityManager->persist($image);
             }
+
+            foreach($figure->getVideos() as $video) {
+
+                $video->setFigure($figure);
+                $entityManager->persist($video);
+            }
+                
                 $entityManager->persist($figure);
                 $entityManager->flush();
 
@@ -78,7 +87,7 @@ class FiguresController extends AbstractController
 
         return $this->render('figures/create.html.twig', [
             'figures' => $figure,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -154,6 +163,26 @@ class FiguresController extends AbstractController
         return $this->redirectToRoute('accueil');
     }
 
+
+    /**
+     * Permet de supprimer une video
+     * @Route("/admin/{id}/delete_video", name="video_delete")
+     * 
+    */
+    public function deleteVideo(Video $video, EntityManagerInterface $entityManager): Response
+    {
+       $entityManager->remove($video);
+       $entityManager->flush();
+
+       $this->addFlash(
+        'success',
+        "La video a bien été supprimé"
+        );
+        
+        return $this->redirectToRoute('accueil');
+    }
+
+
     /**
      * Permet de modifier l'image
      * @Route("/figure/update/{id}", name="update_image", methods="GET|POST")
@@ -171,6 +200,28 @@ class FiguresController extends AbstractController
         }
         return $this->render('figures/updateimage.html.twig', [
             "image" => $image,
+            "form" => $form->createView()
+
+        ]);
+    }
+    
+    /**
+     * Permet de modifier la video
+     * @Route("/figure/updatevideo/{id}", name="update_video", methods="GET|POST")
+    */
+    public function UpdateVideo(Video $video, Request $request, EntityManagerInterface $objectManager)
+    {   
+
+        $form = $this->createForm(VideoType::class, $video);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $objectManager->persist($video);
+            $objectManager->flush();
+            return $this->redirectToRoute("accueil");
+        }
+        return $this->render('figures/updatevideo.html.twig', [
+            "video" => $video,
             "form" => $form->createView()
 
         ]);

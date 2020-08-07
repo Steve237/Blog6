@@ -33,7 +33,25 @@
 
 {% endblock %}
 
+{% block _add_figure_videos_widget %}
+
+    <p>Ajoutez une ou plusieurs images</p>
+
+    {{form_widget(form)}}
+
+    <div class="form-group">
+        <button type="button" id="add-video" class="btn btn-primary">Ajouter une Video</button>
+    </div>
+
+{% endblock %}
+
+
 {% block _add_figure_images_entry_row %}
+    {{form_widget(form)}}
+{% endblock %}
+
+
+{% block _add_figure_videos_entry_row %}
     {{form_widget(form)}}
 {% endblock %}
 
@@ -54,4 +72,23 @@
         </div>
     </div>
 {% endblock %}
+
+{% block _add_figure_videos_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{form_widget(form.videoName)}}
+                        {{form_errors(form.videoName)}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" data-action="deletevideo" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 

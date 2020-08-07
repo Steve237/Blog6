@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Figures;
+use App\Form\VideoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,6 +47,16 @@ class AddFigureType extends AbstractType
                     'allow_delete' => true
                 ]
             )
+            ->add(
+                'videos', 
+                CollectionType::class, 
+                [
+                    'entry_type' => VideoType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true
+                ]
+            )
+
         ;
     }
 
