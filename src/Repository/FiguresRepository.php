@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Figures;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Figures|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,18 @@ class FiguresRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Figures::class);
     }
+
+    public function findAllWithPagination() : Query {
+
+        return $this->createQueryBuilder('v')
+        ->getQuery();
+    }
+
+
+
+
+
+
 
     // /**
     //  * @return Figures[] Returns an array of Figures objects
