@@ -9,14 +9,20 @@ use App\Repository\UsersRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+
+
+
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @Vich\Uploadable
  * @UniqueEntity(
  * fields={"username"},
  * message="Ce pseudo existe déjà"
  * )
- * 
  * @UniqueEntity(
  * fields={"email"},
  * message="Cette adresse email existe déjà"
@@ -72,9 +78,26 @@ class Users implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @Vich\UploadableField(mapping="figure_image", fileNameProperty="avatar")
+    */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->updated_at = new \DateTime();
+
     }
 
     public function getId(): ?int
@@ -200,4 +223,46 @@ class Users implements UserInterface
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+        
+        if($this->imageFile instanceof UploadedFile){
+
+            $this->updated_at = new \DateTime('Now');
+        }
+        
+        return $this;
+
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
 }

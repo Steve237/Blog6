@@ -31,6 +31,7 @@ class AuthentificationController extends AbstractController
             $passwordCrypt = $encoder->encodePassword($users, $users->getPassword());
             // crypte le mot de passe entré
             $users->setPassword($passwordCrypt);
+            $users->setVerifPass($passwordCrypt);
             
             // On génère le token d'activation
             $users->setActivationToken(md5(uniqid()));
@@ -162,9 +163,6 @@ class AuthentificationController extends AbstractController
         return $this->render('admin_secu/recoverypass.html.twig', ['emailForm' => $form->createView()]);
     }
 
-
-    
-    
     /**
      * @Route("/updatepass/{token}", name="updatepass")
      */

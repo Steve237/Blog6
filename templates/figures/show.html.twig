@@ -115,15 +115,52 @@
                 </div>
             
             <h3 style="margin-top:40px">Liste des commentaires</h3>
-            {% for comment in figures.comments %}
+            <section id="comments">
+            {% for comment in figures.comments | slice(0,5)  %}
             <div style="border:solid 1px black;padding:10px;margin-bottom:15px">
-
-                {{ comment.content }}
-
+                <li class="media">
+                    <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
+                    <div class="media-body">
+                      <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
+                      {{ comment.content }}
+                      <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
+                    </div>
+                </li>
             </div>
-           
-            {% endfor %}
+           {% endfor %}
+           </section>
+        </div>
+        <div class="row text-center">
+            <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent()}}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    click = 0;
+    function loadMoreComments(event) {
+        event.preventDefault();
+        click++;
+        var start = 5 * click;
+        const url = "{{ path('loadMoreComments', {'id': figures.id})}}/" + start;
+        axios.get(url).then(function(response) {
+            $("#comments").append(response.data);
+        }).catch(function (error) {
+            if (response.status === 403) {
+                window.alert("Vous n'êtes pas autorisé à effectuer cette action !");
+            }
+            else if (response.status === 404) {
+                window.alert("La page appelé n'existe pas");
+            }
+            else {
+                window.alert("Une erreur est survenue !");
+            }
+        });
+    }
+    document.getElementById("loadMoreComments").addEventListener("click", loadMoreComments);
+</script>
 {% endblock %}

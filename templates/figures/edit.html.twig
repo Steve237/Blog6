@@ -62,8 +62,8 @@
                 
                     {% for video in figures.videos %}
                     <div class="col-md-4 bodypost">
-                        <iframe height="300" width="335" src='{{video.videoName}}' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <div class="row">
+                        <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="row">
                             <div class="col-md-2">
                                 <a href="{{path('update_video', {'id': video.id})}}">
                             <button type="button" class="btn btn-outline-primary">
@@ -82,9 +82,21 @@
                         </div>
                         </div>
                     </div>
+
+                    <script type="text/javascript">
+
+                        var url = "{{video.videoName}}";
+                        var id = url.split("?v=")[1]; //sGbxmsDFVnE
+
+                        var embedlink = "http://www.youtube.com/embed/" + id;
+
+                        var ytube1 = document.getElementsByClassName("myIframe");
+
+                        ytube1[{{loop.index0}}].src = embedlink;
+
+                    </script>
                     {% endfor %} 
                 </div>
-            
             </div>
         
         {{form_start(form)}}

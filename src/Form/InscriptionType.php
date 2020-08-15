@@ -6,6 +6,7 @@ use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -17,6 +18,7 @@ class InscriptionType extends AbstractType
         $builder
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
+            ->add('avatar', FileType::class, ['required' => false])
             ->add('password', PasswordType::class)
             ->add('verifpass', PasswordType::class)
         ;

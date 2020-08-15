@@ -1,0 +1,12 @@
+{% for comment in figures.comments | slice(start, start + 5)  %}
+    <div style="border:solid 1px black;padding:10px;margin-bottom:15px">
+        <li class="media">
+            <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
+            <div class="media-body">
+                <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
+                {{ comment.content }}
+                <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
+            </div>
+        </li>
+    </div>
+{% endfor %}

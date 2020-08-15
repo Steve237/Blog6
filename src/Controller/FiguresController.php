@@ -46,7 +46,7 @@ class FiguresController extends AbstractController
     }
 
     /**
-     * Permet d'afficher une page spécifique
+     * Permet d'afficher un article spécifique et les commentaires associés
      * @Route("/{id}", name="figure")
      */
     public function show(Figures $figures, Request $request, EntityManagerInterface $entityManager): Response
@@ -70,6 +70,23 @@ class FiguresController extends AbstractController
         ]);
     }
 
+    
+    
+    /**
+     * Get the 5 next comments in the database and create a Twig file with them that will be displayed via Javascript
+     * 
+     * @Route("/figure/{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
+     */
+    public function loadMoreComments(FiguresRepository $repo, $id, $start = 5)
+    {
+        $figures = $repo->findOneById($id);
+
+        return $this->render('figures/loadMoreComments.html.twig', [
+            'figures' => $figures,
+            'start' => $start
+        ]);
+    }
+    
     
     /**
      * Permet d'ajouter une nouvelle figure
@@ -270,19 +287,8 @@ class FiguresController extends AbstractController
             "form" => $form->createView()
 
         ]);
+    
+    
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
