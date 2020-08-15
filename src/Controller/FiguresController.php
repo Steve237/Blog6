@@ -225,7 +225,7 @@ class FiguresController extends AbstractController
 
     /**
      * Permet de modifier l'image
-     * @Route("/figure/update/{id}", name="update_image", methods="GET|POST")
+     * @Route("/admin/update/{id}", name="update_image", methods="GET|POST")
     */
     public function UpdateImage(Image $image, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -247,7 +247,7 @@ class FiguresController extends AbstractController
     
     /**
      * Permet de modifier la video
-     * @Route("/figure/updatevideo/{id}", name="update_video", methods="GET|POST")
+     * @Route("/admin/updatevideo/{id}", name="update_video", methods="GET|POST")
     */
     public function UpdateVideo(Video $video, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -269,7 +269,7 @@ class FiguresController extends AbstractController
     
     /**
      * Permet de modifier l'image à la une
-     * @Route("/figure/modif/{id}", name="modification_imageTop", methods="GET|POST")
+     * @Route("/admin/modif/{id}", name="modification_imageTop", methods="GET|POST")
     */
     public function Modification(Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   

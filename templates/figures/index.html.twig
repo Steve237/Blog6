@@ -25,6 +25,10 @@
     
         {% endfor %}
 
+        {% if app.user %}
+        <a href="{{path("create")}}"><button type="button" class="btn btn-primary addfigure">Ajouter une figure</button></a>
+        {% endif %}
+        
         <h2 id="listefigure"> Liste des figures </h2>
         <div class="row">
         <div class="card-deck">
@@ -41,6 +45,8 @@
                     <p class="card-text">{{figure.description}}</p>
                 </div>
                 
+                {% if app.user %}
+
                 <div>
                 <a href="{{path('update', {'id': figure.id})}}">
                     <button type="button" class="btn btn-outline-primary" style="position:absolute;left:5px;bottom:5px">
@@ -78,9 +84,8 @@
                       </div>
                     </div>
                   </div>
-                
-            
                 </div>
+                {% endif %}
             </div>
             </div>
 

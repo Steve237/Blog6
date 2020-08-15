@@ -93,6 +93,11 @@ class Users implements UserInterface
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -165,7 +170,7 @@ class Users implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return [$this->roles];
     }
 
     public function getActivationToken(): ?string
@@ -263,6 +268,21 @@ class Users implements UserInterface
     {
         $this->updated_at = $updated_at;
 
+        return $this;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        
+        if($roles === null) {
+            $this->roles = "ROLES_USER";
+
+        } else {
+
+            $this->roles = $roles;  
+        
+        }
+        
         return $this;
     }
 }
