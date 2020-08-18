@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class FiguresController extends AbstractController
@@ -164,6 +165,40 @@ class FiguresController extends AbstractController
 
     }
     
+    
+    /**
+     * Permet de modifier l'image de la figure
+     * @Route("/admin/updateimage/{idimage}/figure/{id}", name="update_image", methods="GET|POST")
+     * @ParamConverter("image", options={"mapping": {"idimage" : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+    */
+    public function UpdateImage(Image $image, Figures $figures, Request $request, EntityManagerInterface $objectManager)
+    {   
+
+        $form = $this->createForm(ImageType::class, $image);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $objectManager->persist($image);
+            $objectManager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'image a bien été modifié"
+                );
+                
+            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+
+
+        }
+        return $this->render('figures/updateimage.html.twig', [
+            "figures" =>$figures,
+            "image" => $image,
+            "form" => $form->createView()
+
+        ]);
+    }
+    
     /**
      * Permet de supprimer une annonce
      * @Route("/admin/{id}/delete", name="figure_delete")
@@ -190,6 +225,13 @@ class FiguresController extends AbstractController
     {
        $entityManager->remove($image);
        $entityManager->flush();
+
+       $this->addFlash(
+        'success',
+        "L'image a bien été supprimée"
+        );
+        
+        return $this->redirectToRoute('accueil');
     
     }
 
@@ -203,38 +245,17 @@ class FiguresController extends AbstractController
        $entityManager->remove($video);
        $entityManager->flush();
 
+       $this->addFlash(
+        'success',
+        "La video a bien été supprimée"
+        );
+        
+        return $this->redirectToRoute('accueil');
+
     }
 
 
-    /**
-     * Permet de modifier l'image de la figure
-     * @Route("/admin/update/{id}", name="update_image", methods="GET|POST")
-    */
-    public function UpdateImage(Image $image, Request $request, EntityManagerInterface $objectManager)
-    {   
-
-        $form = $this->createForm(ImageType::class, $image);
-
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $objectManager->persist($image);
-            $objectManager->flush();
-
-            $this->addFlash(
-                'success',
-                "L'image a bien été modifié"
-                );
-                
-            return $this->redirectToRoute('accueil');
-
-
-        }
-        return $this->render('figures/updateimage.html.twig', [
-            "image" => $image,
-            "form" => $form->createView()
-
-        ]);
-    }
+   
     
     /**
      * Permet de modifier la video

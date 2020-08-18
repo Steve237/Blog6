@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200815221209 extends AbstractMigration
+final class Version20200818165233 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,7 +24,7 @@ final class Version20200815221209 extends AbstractMigration
 
         $this->addSql('ALTER TABLE figures CHANGE image_top image_top VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE image CHANGE figure_id figure_id INT DEFAULT NULL, CHANGE image_figure image_figure VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE users ADD roles VARCHAR(255) NOT NULL, CHANGE activation_token activation_token VARCHAR(50) DEFAULT NULL, CHANGE reset_token reset_token VARCHAR(255) DEFAULT NULL, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE users CHANGE activation_token activation_token VARCHAR(50) DEFAULT NULL, CHANGE reset_token reset_token VARCHAR(255) DEFAULT NULL, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE video CHANGE figure_id figure_id INT DEFAULT NULL, CHANGE video_name video_name VARCHAR(255) DEFAULT NULL');
     }
 
@@ -35,7 +35,7 @@ final class Version20200815221209 extends AbstractMigration
 
         $this->addSql('ALTER TABLE figures CHANGE image_top image_top VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE image CHANGE figure_id figure_id INT DEFAULT NULL, CHANGE image_figure image_figure VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
-        $this->addSql('ALTER TABLE users DROP roles, CHANGE activation_token activation_token VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE reset_token reset_token VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE avatar avatar VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE users CHANGE activation_token activation_token VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE reset_token reset_token VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE avatar avatar VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE video CHANGE figure_id figure_id INT DEFAULT NULL, CHANGE video_name video_name VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
     }
 }
