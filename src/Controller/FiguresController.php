@@ -198,7 +198,40 @@ class FiguresController extends AbstractController
 
         ]);
     }
-    
+
+
+    /**
+     * Permet de modifier la video
+     * @Route("/admin/updatevideo/{idvideo}/figure/{id}", name="update_video", methods="GET|POST")
+     * @ParamConverter("video", options={"mapping": {"idvideo" : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+    */
+    public function UpdateVideo(Video $video, Figures $figures, Request $request, EntityManagerInterface $objectManager)
+    {   
+
+        $form = $this->createForm(VideoType::class, $video);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $objectManager->persist($video);
+            $objectManager->flush();
+
+            $this->addFlash(
+                'success',
+                "La vidéo a bien été modifié"
+                );
+                
+            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+        }
+        return $this->render('figures/updatevideo.html.twig', [
+            "figures" =>$figures,
+            "video" => $video,
+            "form" => $form->createView()
+
+        ]);
+    }
+
+
     /**
      * Permet de supprimer une annonce
      * @Route("/admin/{id}/delete", name="figure_delete")
@@ -219,9 +252,11 @@ class FiguresController extends AbstractController
 
     /**
      * Permet de supprimer une image
-     * @Route("/admin/{id}/delete_image", name="image_delete")
+     * @Route("/admin/delete_image/{idimage}/figure/{id}", name="image_delete")
+     * @ParamConverter("image", options={"mapping": {"idimage" : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
     */
-    public function deleteImage(Image $image, EntityManagerInterface $entityManager): Response
+    public function deleteImage(Image $image, Figures $figures, EntityManagerInterface $entityManager): Response
     {
        $entityManager->remove($image);
        $entityManager->flush();
@@ -231,16 +266,19 @@ class FiguresController extends AbstractController
         "L'image a bien été supprimée"
         );
         
-        return $this->redirectToRoute('accueil');
+        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+
     
     }
 
 
     /**
      * Permet de supprimer une video
-     * @Route("/admin/{id}/delete_video", name="video_delete")
+     * @Route("/admin/delete_video/{idvideo}/figure/{id}", name="video_delete")
+     * @ParamConverter("video", options={"mapping": {"idvideo" : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
     */
-    public function deleteVideo(Video $video, EntityManagerInterface $entityManager): Response
+    public function deleteVideo(Video $video, Figures $figures, EntityManagerInterface $entityManager): Response
     {
        $entityManager->remove($video);
        $entityManager->flush();
@@ -250,36 +288,9 @@ class FiguresController extends AbstractController
         "La video a bien été supprimée"
         );
         
-        return $this->redirectToRoute('accueil');
-
+        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
     }
 
-
-   
-    
-    /**
-     * Permet de modifier la video
-     * @Route("/admin/updatevideo/{id}", name="update_video", methods="GET|POST")
-    */
-    public function UpdateVideo(Video $video, Request $request, EntityManagerInterface $objectManager)
-    {   
-
-        $form = $this->createForm(VideoType::class, $video);
-
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $objectManager->persist($video);
-            $objectManager->flush();
-
-            return $this->redirectToRoute('accueil');
-        }
-        return $this->render('figures/updatevideo.html.twig', [
-            "video" => $video,
-            "form" => $form->createView()
-
-        ]);
-    }
-    
     /**
      * Permet de modifier l'image à la une
      * @Route("/admin/modif/{id}", name="modification_imageTop", methods="GET|POST")
