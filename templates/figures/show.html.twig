@@ -6,6 +6,8 @@
 <div class = "container">
     <div class="card mb-3" style="margin-top:100px">
         <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+        
+        {% if app.user %}
         <div style="position:absolute;top:30px;right:80px;">
             <a href="{{path('modification_imageTop', {'id': figures.id})}}">
                 <button type="button" class="btn btn-outline-primary">
@@ -27,8 +29,18 @@
                 </svg>
             </button>
         </form>
+        {% endif %}
         
-        <div class="card-body">            
+        <div class="card-body">
+             {% for label, messages in app.flashes %}
+
+        <div class="alert alert-{{ label }} valid-creation">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+    
+        {% endfor %}            
             <div class="row">
                 
                 {% for image in figures.images %}
@@ -82,7 +94,7 @@
             <h3 style="margin-top:40px">Liste des commentaires</h3>
             <section id="comments">
                 {% for comment in figures.comments | slice(0,5)  %}
-                    <div style="border:solid 1px black;padding:10px;margin-bottom:15px">
+                    <div class="commentstyle">
                         <li class="media">
                             <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
                             <div class="media-body">

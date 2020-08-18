@@ -8,16 +8,17 @@
     <div class="container">
         
         <h1 class="titreform">Ajouter une figure</h1>
-    
-        {{form_start(form)}}
+        <div class="formstyle">
+            {{form_start(form)}}
         
-        {{form_widget(form)}}
+            {{form_widget(form)}}
 
-        <input type="hidden" id="widgets-counter" value="0">
+            <input type="hidden" id="widgets-counter" value="0">
 
-        <button type="submit" class="btn btn-primary">Ajouter une figure</button>
+            <button type="submit" class="btn btn-primary">Ajouter une figure</button>
 
-        {{form_end(form)}}
+            {{form_end(form)}}
+        </div>
     </div>    
 {% endblock %}
 

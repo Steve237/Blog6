@@ -5,12 +5,10 @@ Modification de l'image
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="contentform">
+   <h1 class="titleform">Modifier l'image</h1>
    
-   <h1 style="text-align:center;margin-top:50px">Modifier l'image</h1>
-   
-    <div style="margin-top:20px">
-      
+    <div class="formstyle">
       {{form_start(form)}}
          {{form_widget(form)}}
          <input type="submit" class="btn btn-primary" value="enregistrer">

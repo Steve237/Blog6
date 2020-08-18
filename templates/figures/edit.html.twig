@@ -96,18 +96,18 @@
                     {% endfor %} 
                 </div>
             </div>
-        
-        {{form_start(form)}}
-        
-            {{form_widget(form)}}
-
-            <input type="hidden" id="widgets-counter" value="0">
-
-            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-
-        {{form_end(form)}}
-    </div>   
-</div>
+            <div class="editform">
+                {{form_start(form)}}
+                    {{form_widget(form)}}
+                    <input type="hidden" id="widgets-counter" value="0">
+                    <div class="buttonposition">
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </div>
+                {{form_end(form)}}
+            </div>
+        </div>   
+    </div>
 {% endblock %}
 
 

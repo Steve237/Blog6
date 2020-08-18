@@ -5,10 +5,10 @@ Formulaire de connexion
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="contentform">
    
-   <h1 style="text-align:center;margin-top:50px">Formulaire de connexion</h1>
-   <div style="margin-top:20px">
+   <h1 class="titleform">Formulaire de connexion</h1>
+   <div class="formstyle">
 
 
     {% for message in app.flashes('message') %}
@@ -46,8 +46,7 @@ Formulaire de connexion
         </div>
         <input type="submit" class="btn btn-primary" value="Se connecter">
     </form>
-    <a style="color:black" href="{{path("recoverypassword")}}">Mot de passe oublié?</a>
+    <a class="recoverypasslink" href="{{path("recoverypassword")}}">Mot de passe oublié?</a>
     </div>
-
 </div>
 {% endblock %}

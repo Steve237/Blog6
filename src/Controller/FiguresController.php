@@ -70,11 +70,8 @@ class FiguresController extends AbstractController
         ]);
     }
 
-    
-    
     /**
-     * Get the 5 next comments in the database and create a Twig file with them that will be displayed via Javascript
-     * 
+     * Permet de charger plus de commentaires
      * @Route("/figure/{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
      */
     public function loadMoreComments(FiguresRepository $repo, $id, $start = 5)
@@ -156,7 +153,7 @@ class FiguresController extends AbstractController
                     "<strong>La figure a bien été modifié!</strong>"
                 );
 
-                return $this->redirectToRoute('accueil');
+                return $this->redirectToRoute('figure',  array('id' => $figure->getId()));
         }
 
         return $this->render('figures/edit.html.twig', [
@@ -179,7 +176,7 @@ class FiguresController extends AbstractController
 
        $this->addFlash(
         'success',
-        "L'annonce a bien été supprimé"
+        "L'annonce a bien été supprimée"
         );
         
         return $this->redirectToRoute('accueil');
@@ -188,43 +185,29 @@ class FiguresController extends AbstractController
     /**
      * Permet de supprimer une image
      * @Route("/admin/{id}/delete_image", name="image_delete")
-     * 
     */
     public function deleteImage(Image $image, EntityManagerInterface $entityManager): Response
     {
        $entityManager->remove($image);
        $entityManager->flush();
-
-       $this->addFlash(
-        'success',
-        "L'image a bien été supprimé"
-        );
-        
-        return $this->redirectToRoute('accueil');
+    
     }
 
 
     /**
      * Permet de supprimer une video
      * @Route("/admin/{id}/delete_video", name="video_delete")
-     * 
     */
     public function deleteVideo(Video $video, EntityManagerInterface $entityManager): Response
     {
        $entityManager->remove($video);
        $entityManager->flush();
 
-       $this->addFlash(
-        'success',
-        "La video a bien été supprimé"
-        );
-        
-        return $this->redirectToRoute('accueil');
     }
 
 
     /**
-     * Permet de modifier l'image
+     * Permet de modifier l'image de la figure
      * @Route("/admin/update/{id}", name="update_image", methods="GET|POST")
     */
     public function UpdateImage(Image $image, Request $request, EntityManagerInterface $objectManager)
@@ -236,7 +219,15 @@ class FiguresController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $objectManager->persist($image);
             $objectManager->flush();
-            return $this->redirectToRoute("accueil");
+
+            $this->addFlash(
+                'success',
+                "L'image a bien été modifié"
+                );
+                
+            return $this->redirectToRoute('accueil');
+
+
         }
         return $this->render('figures/updateimage.html.twig', [
             "image" => $image,
@@ -258,7 +249,8 @@ class FiguresController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $objectManager->persist($video);
             $objectManager->flush();
-            return $this->redirectToRoute("accueil");
+
+            return $this->redirectToRoute('accueil');
         }
         return $this->render('figures/updatevideo.html.twig', [
             "video" => $video,
@@ -280,15 +272,14 @@ class FiguresController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $objectManager->persist($figures);
             $objectManager->flush();
-            return $this->redirectToRoute("accueil");
+            
+            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+
         }
         return $this->render('figures/modifImage.html.twig', [
             "figures" => $figures,
             "form" => $form->createView()
 
         ]);
-    
-    
     }
-
 }
