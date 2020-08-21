@@ -268,7 +268,6 @@ class FiguresController extends AbstractController
         
         return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
 
-    
     }
 
 
@@ -276,7 +275,7 @@ class FiguresController extends AbstractController
      * Permet de supprimer une video
      * @Route("/admin/delete_video/{idvideo}/figure/{id}", name="video_delete")
      * @ParamConverter("video", options={"mapping": {"idvideo" : "id"}})
-     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"id" : "id"}})
     */
     public function deleteVideo(Video $video, Figures $figures, EntityManagerInterface $entityManager): Response
     {
@@ -313,5 +312,23 @@ class FiguresController extends AbstractController
             "form" => $form->createView()
 
         ]);
+    }
+
+    
+    /**
+     * @Route("/admin/{id}/deleteimagetop", name="delete_imagetop")
+    */
+    public function deleteImageTop(Figures $figures, EntityManagerInterface $entityManager): Response
+    {  
+       $figures->setImageTop(NULL);      
+       $entityManager->flush();
+        
+       $this->addFlash(
+        'success',
+        "L'image a bien été supprimée"
+        );
+        
+        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+
     }
 }

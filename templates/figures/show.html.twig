@@ -5,7 +5,11 @@
 {% block body %}
 <div class = "container">
     <div class="card mb-3" style="margin-top:100px">
-        <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+        {% if figures.imageTop is not null %}
+            <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+        {% else %}
+            <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+        {% endif %}
         
         {% if app.user %}
         <div style="position:absolute;top:30px;right:80px;">
