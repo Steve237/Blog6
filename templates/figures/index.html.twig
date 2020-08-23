@@ -3,83 +3,73 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<section>
-
-    <img src="{{asset("img/figure/snow.jpg")}}" style="width:100%">
-
-    <a href="#listefigure"><img src="{{asset("img/figure/scroll_down.png")}}" style="position:absolute;right:1px;bottom:3px"></a>    
-
-</section>
-
-
-<div class="container">
     <section>
-        
+        <img src="{{asset("img/figure/snow.jpg")}}" style="width:100%">
+
+        <a href="#listefigure"><img src="{{asset("img/figure/scroll_down.png")}}" style="position:absolute;right:1px;bottom:3px"></a>    
+    </section>
+    <div class="container">
         {% for label, messages in app.flashes %}
 
-        <div class="alert alert-{{ label }} valid-creation">
-            {% for message in messages %}
-                <p>{{ message | raw }}</p>
-            {% endfor %}
-        </div>
-    
+            <div class="alert alert-{{ label }} valid-creation">
+                {% for message in messages %}
+                    <p>{{ message | raw }}</p>
+                {% endfor %}
+            </div>
+
         {% endfor %}
 
         {% if app.user %}
-        <a href="{{path("create")}}"><button type="button" class="btn btn-primary addfigure">Ajouter une figure</button></a>
+            <a href="{{path("create")}}"><button type="button" class="btn btn-primary addfigure">Ajouter une figure</button></a>
         {% endif %}
-        
+
         <h2 id="listefigure"> Liste des figures </h2>
+
         <div class="row">
-        <div class="card-deck">
-        {% for figure in figures %}
-           
+
+            <div class="card-deck">
+                {% for figure in figures %}
+
+                    <div class="col-md-3">
+                        <div class="card cardsize">
+                            {% if figure.imageTop is not null %}
+                                <img class="card-img-top imagesize" src="{{asset('img/figure/' ~ figure.imageTop)}}" alt="Card image cap">
+                            {% else %}
+                                <img class="card-img-top imagesize" src="{{asset('img/figure/figuredefault.jpg')}}"  alt="Card image cap">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{figure.nomFigure}}</h5>
+                                <p class="card-text">{{figure.description}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-muted" style="height:50px">
+                                    {% if app.user %}
+                                        <a href="{{path('update', {'id' : figure.id})}}">
+                                            <button type="button" class="btn btn-outline-primary" style="position:absolute;left:5px;bottom:5px">
+                                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </button>
+                                        </a>
         
-            <div class="col-md-3">
-            <div class="card" style="height:550px;margin-top:15px">
-               
-                {% if figure.imageTop is not null %}
-                    <img src="{{asset('img/figure/' ~ figure.imageTop)}}" class="card-img-top imagetop" alt="...">
-                {% else %}
-                    <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetop" alt="figure_snowboard">
-                {% endif %}
-                
-                <div class="card-body">
-                    <a href="{{path('figure', {'id' : figure.id})}}"><h5 class="card-title">{{figure.nomFigure}}</h5></a>
-                    <p class="card-text">{{figure.description}}</p>
-                </div>
-                
-                {% if app.user %}
-
-                <div>
-                <a href="{{path('update', {'id' : figure.id})}}">
-                    <button type="button" class="btn btn-outline-primary" style="position:absolute;left:5px;bottom:5px">
-                        <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                        </svg>
-                    </button>
-                </a>
-                
-                <a href="{{path('figure_delete', {'id': figure.id})}}">
-                <button type="submit" class="btn btn-outline-danger" style="position:absolute;left:50px; bottom:5px" onsubmit="return confirm('Confirmer la suppression?')">
-                    <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-                </a>
-                </div>
-                {% endif %}
+                                        <a href="{{path('figure_delete', {'id': figure.id})}}">
+                                            <button type="submit" class="btn btn-outline-danger" style="position:absolute;left:50px; bottom:5px" onclick="return confirm('Confirmer la suppression?')">
+                                                <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            </div>
-
-        {% endfor %}
         </div>
-    </div>
         <div class="navigation">
             {{ knp_pagination_render(figures)}}
         </div>
-    </section>
-
-</div>
+    </div>
 {% endblock %}

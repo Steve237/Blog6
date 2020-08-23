@@ -1,8 +1,7 @@
-.imagetop {
+.imagesize {
 
     height:200px;
-    width:231px;
-    object-fit:cover;
+    width:100%;
 }
 
 .bodypost {
@@ -114,5 +113,13 @@ margin-bottom:80px;
 
 position:absolute;
 right:152px
+
+}
+
+.cardsize
+{
+
+height:550px;
+margin-top:5px;
 
 }
