@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class = "container">
-    <div class="card mb-3" style="margin-top:100px">
+    <div class="card mb-3 blocktrick">
         {% if figures.imageTop is not null %}
             <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
         {% else %}
@@ -12,7 +12,7 @@
         {% endif %}
         
         {% if app.user %}
-        <div style="position:absolute;top:30px;right:80px;">
+        <div class="imagetopedit">
             <a href="{{path('modification_imageTop', {'id': figures.id})}}">
                 <button type="button" class="btn btn-outline-primary">
                     <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -22,17 +22,14 @@
                 </button>
             </a>
         </div>
-
         
-        <form method="POST">
-            <input type="hidden" name="_method" value="delete">
-            <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ figures.id)}}">
-            <button type="submit" class="btn btn-outline-danger" style="position:absolute;top:30px;right:40px;margin-right:-10px">
+        <a href="{{path('delete_imagetop', {'id': figures.id})}}">
+            <button type="button" class="btn btn-outline-danger imagetopdelete">
                 <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                 </svg>
             </button>
-        </form>
+            </a>
         {% endif %}
         
         <div class="card-body">
@@ -49,7 +46,7 @@
                 
                 {% for image in figures.images %}
                 <div class="col-md-4 bodypost">
-                    <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" style="height:300px;" alt="figure_snowboard"></a>
+                    <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" alt="figure_snowboard"></a>
                 </div>
                 {% endfor %} 
             </div>
@@ -58,7 +55,7 @@
             <div class="row">
                 
                 {% for video in figures.videos %}
-                <div class="col-md-4 bodypost">
+                <div class="videoconteneur">
                     <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 
@@ -78,15 +75,15 @@
             </div>
 
 
-            <div class="card-body"> 
-                <h2 class="card-title" style="text-align:center;text-decoration:underline">{{figures.nomFigure}}</h2>
-                <div style="border: solid 0.5px black;height:350px">
-                    <p class="card-text" style="text-align:justify;padding:50px">{{figures.description}}</p>
+            <div class="card-body blockdetails"> 
+                <h2 class="card-title figuretitle">{{figures.nomFigure}}</h2>
+                <div class="block-description">
+                    <p class="card-text info-description">{{figures.description}}</p>
                 </div>
-                <div style="margin:15px">
-                    <p class="card-text" style="text-align:center;font-size:medium"><span style="margin-right:8px;border:1px solid black;padding:5px">Catégorie : {{figures.groupe.libelle}}</span><span style="margin-right:8px;border:1px solid black;padding:5px">Date de publication: {{figures.updatedAt|date('d-m-Y')}}</span></p>
+                <div class="infoarticle row">
+                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="category">Catégorie : {{figures.groupe.libelle}}</span></p>
+                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="date">Date de publication: {{figures.updatedAt|date('d-m-Y')}}</span></p>
                 </div>
-            </div>
         
             <div class="form-group">
                 {{form_start(form)}}
@@ -95,25 +92,35 @@
                 {{form_end(form)}}
             </div>
             
-            <h3 style="margin-top:40px">Liste des commentaires</h3>
+            <h3 class="comment-title">Liste des commentaires</h3>
             <section id="comments">
-                {% for comment in figures.comments | slice(0,5)  %}
-                    <div class="commentstyle">
-                        <li class="media">
-                            <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
-                            <div class="media-body">
-                                <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
-                                {{ comment.content }}
-                                <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
-                            </div>
-                        </li>
-                    </div>
-                {% endfor %}
+                {% if figures.comments is not null %}
+                    {% for comment in figures.comments | slice(0,5)  %}
+                        <div class="commentstyle">
+                            <li class="media">
+                                <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
+                                    {{ comment.content }}
+                                    <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
+                                </div>
+                            </li>
+                        </div>
+                    {% else %}
+                    <p>Aucun commentaire n'a été posté, soyez le premier à commenter.</p>
+                    {% endfor %}
+                {% endif %}
            </section>
         </div>
-        <div class="row text-center">
-            <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
-        </div>
+
+        {% if figures.comments is not null %}
+            {% for comment in figures.comments %}
+                <div class="row text-center">
+                    <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

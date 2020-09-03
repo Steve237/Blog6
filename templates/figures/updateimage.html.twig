@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}  
-Modification de l'image
-{% endblock %}
+{% block title %}Modification de l'image{% endblock %}
 
 {% block body %}
-<div class="contentform">
-   <h1 class="titleform">Modifier l'image</h1>
+   <div class="contentform">
+      <div class="row">
+         <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+            <h1 class="titleform">Modifier l'image</h1>
    
-   <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
-   <div class="formstyle">
-      {{form_start(form)}}
-         {{form_widget(form)}}
-         <input type="submit" class="btn btn-primary" value="enregistrer">
-      {{form_end(form)}} 
+            <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+            <div class="formstyle">
+               {{form_start(form)}}
+                  {{form_widget(form)}}
+                  <input type="submit" class="btn btn-primary" value="Modifier">
+               {{form_end(form)}} 
+            </div>
+         </div>
+      </div>
    </div>
-</div>
 {% endblock %}

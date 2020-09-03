@@ -4,14 +4,14 @@
 
 {% block body %}
     <div class="container">
-        <div class="card mb-3" style="margin-top:100px">
+        <div class="card mb-3 blocktrick">
             {% if figures.imageTop is not null %}
                 <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
             {% else %}
                 <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetopsize" alt="figure_snowboard">
             {% endif %}
             
-            <div style="position:absolute;top:30px;right:80px;">
+            <div class="imagetopedit">
                 <a href="{{path('modification_imageTop', {'id': figures.id})}}">
                     <button type="button" class="btn btn-outline-primary">
                         <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@
             </div>
                 
                 <a href="{{path('delete_imagetop', {'id': figures.id})}}">
-                <button type="button" class="btn btn-outline-danger" style="position:absolute;top:30px;right:40px;margin-right:-10px">
+                <button type="button" class="btn btn-outline-danger imagetopdelete">
                     <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                     </svg>
@@ -36,7 +36,7 @@
         
                     {% for image in figures.images %}
                     <div class="col-md-4 bodypost">
-                        <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top" style="height:300px;" alt="figure_snowboard"></a>
+                        <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top image-height" alt="figure_snowboard"></a>
                         <div class="row">
                             <div class="col-md-2">
                         <a href="{{path('update_image', {'idimage':image.id, 'id':figures.id})}}">
@@ -48,31 +48,13 @@
                             </button>
                         </a>
                         </div>
-                        
-                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Supprimer image</button>
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Suppression de l'image</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    Voulez vous vraiment supprimer l'image?
-                                </div>
-                                <div class="modal-footer">
-                                
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            
-                                <a href="{{path('image_delete', {'idimage':image.id, 'id':figures.id})}}"><button type="button" class="btn btn-primary">Oui, je le souhaite</button><a/>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-danger imagedelete" onclick="return confirm('Confirmer la suppression?')">
+                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -81,7 +63,9 @@
                 
                     {% for video in figures.videos %}
                     <div class="col-md-4 bodypost">
-                        <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="videoconteneur">
+                            <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
                                 <a href="{{path('update_video', {'idvideo':video.id, 'id':figures.id})}}">
@@ -94,29 +78,12 @@
                         </a>
                         </div>
 
-                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Supprimer vidéo</button>
-
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Suppression vidéo</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    Voulez vous vraiment supprimer la video?
-                                </div>
-                                <div class="modal-footer">
-                                
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            
-                                <a href="{{path('video_delete', {'idvideo':video.id, 'id':figures.id})}}"><button type="button" class="btn btn-primary">Oui, je le souhaite</button><a/>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-danger videodelete" onclick="return confirm('Confirmer la suppression?')">
+                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    
                     </div>
                     </div>
 
