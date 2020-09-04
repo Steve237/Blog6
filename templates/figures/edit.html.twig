@@ -4,13 +4,14 @@
 
 {% block body %}
     <div class="container">
-        <div class="card mb-3 blocktrick">
+        <div class="card mb-3 col-lg-12 col-sm-12 col-md-12 col-12 blocktrick">
             {% if figures.imageTop is not null %}
                 <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
             {% else %}
                 <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetopsize" alt="figure_snowboard">
             {% endif %}
             
+            {% if app.user %}
             <div class="imagetopedit">
                 <a href="{{path('modification_imageTop', {'id': figures.id})}}">
                     <button type="button" class="btn btn-outline-primary">
@@ -29,8 +30,17 @@
                     </svg>
                 </button>
                 </a>
-            
-            <div class="card-body">                
+                {% endif %}
+        
+
+            <div class="card-body">    
+                
+                <button class="btn btn-primary mx-auto d-block d-md-none" type="button" id="togg1">
+                    Afficher/Masquer
+                </button>
+                <div id="d1">
+
+
                 <div class="row">
                     
         
@@ -49,11 +59,13 @@
                         </a>
                         </div>
 
+                        <a href="{{path('image_delete', {'idimage':image.id, 'id':figures.id})}}">
                         <button type="button" class="btn btn-outline-danger imagedelete" onclick="return confirm('Confirmer la suppression?')">
                             <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                             </svg>
                         </button>
+                        </a>
                     </div>
                     </div>
                     {% endfor %}
@@ -102,13 +114,14 @@
                     {% endfor %} 
                 </div>
             </div>
-            <div class="editform">
+            </div>
+            <div class="editform col-lg-12 col-md-12 col-sm-12 col-12">
                 {{form_start(form)}}
                     {{form_widget(form)}}
                     <input type="hidden" id="widgets-counter" value="0">
-                    <div class="buttonposition">
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-6">Enregistrer</button>
+                        <button type="submit" class="btn btn-danger col-lg-4 col-md-4 col-sm-6 col-6">Supprimer</button>
                     </div>
                 {{form_end(form)}}
             </div>
