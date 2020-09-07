@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+
+{% block body %}
+
+    <div class="errorblock text-center">
+        <h1> ERROR 500 </h1>
+
+        <p>Cette page n'est pas accessible</p>
+        <p>Vous pouvez retourner à l'accueil</p>
+
+        <a href="{{path('accueil')}}" class="btn btn-primary">Retour à l'accueil</a>
+    
+    </div>
+
+{% endblock %}
