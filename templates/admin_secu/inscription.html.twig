@@ -3,34 +3,35 @@
 {% block title %}Formulaire d'inscription{% endblock %}
 
 {% block body %}
-<div class="contentform">
-   <div class="row">
-      <div class="col-md-12 col-lg-12 col-sm-12 col-12">
-   <h1 class="titleform">Formulaire d'inscription</h1>
-   
-   <div class="formstyle">
-      {{form_start(form)}} 
 
-         <div class="form-group">
-            {{form_row(form.username, {"attr" : {"placeholder":"Saisissez votre pseudo"}, "label":"Pseudo"})}} 
+<div class="row">
+   <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+      <div class="contentform">
+         <h1 class="titleform">Formulaire d'inscription</h1>
+   
+         <div class="formstyle">
+            {{form_start(form)}} 
+
+               <div class="form-group">
+                  {{form_row(form.username, {"attr" : {"placeholder":"Saisissez votre pseudo"}, "label":"Pseudo"})}} 
+               </div>
+               <div class="form-group">
+                  {{form_row(form.email, {"attr" : {"placeholder":"Saisissez votre email"}, "label":"Email"})}} 
+               </div>
+               <div class="form-group">
+                  {{form_row(form.avatar)}} 
+               </div>
+               <div class="form-group">
+                  {{form_row(form.password, {"attr" : {"placeholder":"Saisissez votre mot de passe"}, "label":"Mot de passe"})}} 
+               </div>
+               <div class="form-group">
+                  {{form_row(form.verifpass, {"attr" : {"placeholder":"Confirmez votre mot de passe"}, "label":"Confirmation mot de passe"})}} 
+               </div>
+               {{form_widget(form)}}
+                  <input type="submit" class="btn btn-primary" value="Valider">
+            {{form_end(form)}} 
          </div>
-         <div class="form-group">
-            {{form_row(form.email, {"attr" : {"placeholder":"Saisissez votre email"}, "label":"Email"})}} 
-         </div>
-         <div class="form-group">
-            {{form_row(form.avatar)}} 
-         </div>
-         <div class="form-group">
-            {{form_row(form.password, {"attr" : {"placeholder":"Saisissez votre mot de passe"}, "label":"Mot de passe"})}} 
-         </div>
-         <div class="form-group">
-            {{form_row(form.verifpass, {"attr" : {"placeholder":"Confirmez votre mot de passe"}, "label":"Confirmation mot de passe"})}} 
-         </div>
-      {{form_widget(form)}}
-         <input type="submit" class="btn btn-primary" value="Valider">
-      {{form_end(form)}} 
+      </div>
    </div>
-</div>
-</div>
 </div>
 {% endblock %}

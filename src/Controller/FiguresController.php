@@ -63,7 +63,7 @@ class FiguresController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->render('figures/show2.html.twig', [
+        return $this->render('figures/show.html.twig', [
             'figures' => $figures,
             'form' => $form->createView()
         ]);

@@ -3,22 +3,21 @@
 {% block title %} Réinitialisation du mot de passe{% endblock %}
 
 {% block body %}
-<div class="contentform">
     <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12 col-12">
-   <h1 class="titleform">Réinitialisation du mot de passe</h1>
-    <div class="formstyle">
-        <form method="post">
-            <div class="form-group">
-                <label for="pass">Mot de passe </label>
-                <input type="password" name="password" id="pass">
-                <input type="hidden" name="token" value="{{ token }}">
+            <div class="contentform">
+                <h1 class="titleform">Réinitialisation du mot de passe</h1>
+                <div class="formstyle">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="pass">Mot de passe </label>
+                            <input type="password" name="password" id="pass">
+                            <input type="hidden" name="token" value="{{ token }}">
+                        </div>
+                        <button>Valider</button>
+                    </form>
+                </div>
             </div>
-            <button>Valider</button>
-        </form>
+        </div>
     </div>
-</div>
-</div>
-</div>
-
 {% endblock %}
