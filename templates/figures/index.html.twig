@@ -28,7 +28,7 @@
         <div class="row">
             {% for figure in figures %}
                 <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card cardsize">
+                    <div class="card cardsize hover">
                         {% if figure.imageTop is not null %}
                             <a href="{{path('figure', {'id' : figure.id})}}"><img class="card-img-top imagesize" src="{{asset('img/figure/' ~ figure.imageTop)}}" alt="Card image cap"></a> 
                         {% else %}

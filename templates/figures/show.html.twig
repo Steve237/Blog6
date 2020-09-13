@@ -23,6 +23,7 @@
                 </a>
             </div>
                 
+            {% if figures.imageTop is not null %}
                 <a href="{{path('delete_imagetop', {'id': figures.id})}}">
                 <button type="button" class="btn btn-outline-danger imagetopdelete">
                     <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -31,13 +32,15 @@
                 </button>
                 </a>
             {% endif %}
+            {% endif %}   
         
 
-            <div class="card-body">    
-                
+            <div class="card-body">  
                 <button class="btn btn-primary mx-auto d-block d-md-none" type="button" id="togg1">
                     Afficher/Masquer
                 </button>
+                
+
                 <div id="d1">
 
 

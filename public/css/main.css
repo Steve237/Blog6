@@ -640,10 +640,10 @@
 
 
 /* Hover effects */
-.card {
+.hover {
   transition: -webkit-transform 0.3s ease;
 }
-.card:hover {
+.hover:hover {
   transform: scale(1.01, 1.01);
 }
 

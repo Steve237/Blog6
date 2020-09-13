@@ -7,8 +7,12 @@
       <div class="row">
          <div class="col-md-12 col-lg-12 col-sm-12 col-12">
             <h1 class="updateimagetop">Modifier l'image</h1>
-            <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top" alt="figure_snowboard">
-   
+            {% if figures.imageTop is not null %}
+               <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+            {% else %}
+               <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+            {% endif %}
+
             <div class="updateimageform">
                {{form_start(form)}}
                   {{form_widget(form)}}
