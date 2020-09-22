@@ -32,6 +32,7 @@ class AuthentificationController extends AbstractController
             // crypte le mot de passe entré
             $users->setPassword($passwordCrypt);
             $users->setVerifPass($passwordCrypt);
+            $users->setRoles('ROLE_USER');
             
             // On génère le token d'activation
             $users->setActivationToken(md5(uniqid()));
@@ -53,10 +54,13 @@ class AuthentificationController extends AbstractController
             ;
     
             $mailer->send($message);
-            return $this->redirectToRoute('accueil');
+
+            // On envoie un message flash
+            $this->addFlash('message', 'Un mail vient de vous être envoyé pour activer votre compte');
+            return $this->redirectToRoute('inscription');
     
         }
-        return $this->render('admin_secu/inscription.html.twig', [
+            return $this->render('admin_secu/inscription.html.twig', [
             "form" => $form->createView()
         ]);
     }
@@ -90,7 +94,8 @@ class AuthentificationController extends AbstractController
         // Si aucun utilisateur n'existe avec ce token
         if(!$users){
 
-            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+            $this->addFlash('message', 'lien invalide ou utilisateur inexistant');
+            return $this->redirectToRoute('inscription');
             
         }
         
@@ -100,10 +105,10 @@ class AuthentificationController extends AbstractController
         $objectManager->flush();
 
         // On envoie un message flash
-        $this->addFlash('message', 'Vous avez bien activé votre compte');
+        $this->addFlash('message', 'Vous avez bien activé votre compte, vous pouvez vous connecter');
 
         // On retourne à l'accueil
-        return $this->redirectToRoute('accueil');
+        return $this->redirectToRoute('connexion');
     }
 
 
@@ -128,7 +133,11 @@ class AuthentificationController extends AbstractController
 
             if(!$user) {
 
-                throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+                // On envoie un message flash
+                $this->addFlash('message', 'Vous avez bien activé votre compte, vous pouvez vous connecter');
+
+                // On retourne à l'accueil
+                return $this->redirectToRoute('connexion');
             }
 
             $token = $tokenGenerator->generateToken();
@@ -173,7 +182,7 @@ class AuthentificationController extends AbstractController
 
         if(!$user){
             
-            $this->addFlash('danger', 'Token Inconnu');
+            $this->addFlash('danger', 'Lien invalide ou utilisateur inconnu');
             return $this->redirectToRoute('connexion');
         }
 

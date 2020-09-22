@@ -35,7 +35,17 @@
             {% endif %}   
         
 
-            <div class="card-body">  
+            <div class="card-body"> 
+                {% for label, messages in app.flashes %}
+
+                    <div class="alert alert-{{ label }} valid-creation">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
+                
                 <button class="btn btn-primary mx-auto d-block d-md-none" type="button" id="togg1">
                     Afficher/Masquer
                 </button>
@@ -90,41 +100,50 @@
                     <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="category">Catégorie : {{figures.groupe.libelle}}</span></p>
                     <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="date"> Parution: {{figures.updatedAt|date('d-m-Y')}}</span></p>
                 </div>
-        
-            <div class="form-group">
-                {{form_start(form)}}
-                    {{form_widget(form)}}
-                    <button type="submit" class="btn btn-primary mb-2">Laissez un commentaire</button>
-                {{form_end(form)}}
-            </div>
             
-            <h3 class="comment-title">Liste des commentaires</h3>
-            <section id="comments">
-                {% if figures.comments is not null %}
-                    {% for comment in figures.comments | slice(0,5)  %}
-                        <div class="commentstyle">
-                            <li class="media">
-                                <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
-                                    {{ comment.content }}
-                                    <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
-                                </div>
-                            </li>
-                        </div>
+            {% if app.user %}
+                <div class="form-group">
+                    {{form_start(form)}}
+                        {{form_widget(form)}}
+                        <button type="submit" class="btn btn-primary mb-2">Laissez un commentaire</button>
+                    {{form_end(form)}}
+                </div>
+            {% else   %}
+                <p>Connectez vous pour laisser un commentaire</p>
+            {% endif %}
+
+            {% if app.user %}
+            
+                <h3 class="comment-title">Liste des commentaires</h3>
+                <section id="comments">
+                    {% if figures.comments is not null %}
+                        {% for comment in figures.comments | slice(0,5)  %}
+                            <div class="commentstyle">
+                                <li class="media">
+                                    <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
+                                    <div class="media-body">
+                                        <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
+                                        {{ comment.content }}
+                                        <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
+                                    </div>
+                                </li>
+                            </div>
                     {% else %}
-                    <p>Aucun commentaire n'a été posté, soyez le premier à commenter.</p>
-                    {% endfor %}
-                {% endif %}
-           </section>
+                        <p>Aucun commentaire n'a été posté, soyez le premier à commenter.</p>
+                        {% endfor %}
+                    {% endif %}
+                </section>
+           {% endif %}
         </div>
 
-        {% if figures.comments is not null %}
-            {% for comment in figures.comments %}
-                <div class="row text-center">
-                    <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
-                </div>
-            {% endfor %}
+        {% if app.user %}
+            {% if figures.comments is not null %}
+                {% for comment in figures.comments %}
+                    <div class="row text-center">
+                        <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endif %}
 
     </div>

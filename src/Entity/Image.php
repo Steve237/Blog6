@@ -31,8 +31,8 @@ class Image
     /**
      * @Vich\UploadableField(mapping="figure_image", fileNameProperty="imageFigure")
      * @Assert\File(
-     * maxSize="1000k",
-     * maxSizeMessage="Le fichier excède 1000Ko.",
+     * maxSize="10000k",
+     * maxSizeMessage="Le fichier excède 10000Ko.",
      * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
      * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
      * )

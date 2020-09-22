@@ -39,7 +39,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=10, minMessage="Il faut plus de 5 caractères", maxMessage="Il faut moins de 10 caractères")
+     * @Assert\Length(min=5, max=15, minMessage="Il faut plus de 5 caractères", maxMessage="Il faut au max 15 caractères")
      * @Assert\NotBlank(message="vous devez entrer votre pseudo")
      */
     private $username;

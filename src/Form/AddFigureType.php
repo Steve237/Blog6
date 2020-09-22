@@ -37,7 +37,7 @@ class AddFigureType extends AbstractType
             ->add('nomFigure', TextType::class, $this->getConfiguration('Nom de la figure', 'Entrez le nom de la figure'))
             ->add('description', TextareaType::class)
             ->add('groupe')
-            ->add('imageFile', FileType::class, $this->getConfiguration('Image à la une', 'Ajouter une image à la une'), ['required' => false]) 
+            ->add('imageFile', FileType::class, $this->getConfiguration('Image à la une', ""), ['required' => false]) 
             ->add(
                 'images', 
                 CollectionType::class, 

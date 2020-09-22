@@ -177,8 +177,7 @@ class BackendController extends AbstractController
        $entityManager->flush();
 
        $this->addFlash(
-        'success',
-        "L'annonce a bien été supprimée"
+        'success', "L'annonce a bien été supprimée"
         );
         
         return $this->redirectToRoute('accueil');
@@ -196,8 +195,7 @@ class BackendController extends AbstractController
        $entityManager->flush();
 
        $this->addFlash(
-        'success',
-        "L'image a bien été supprimée"
+        'success', "L'image a bien été supprimée"
         );
         
         return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
@@ -217,8 +215,7 @@ class BackendController extends AbstractController
        $entityManager->flush();
 
        $this->addFlash(
-        'success',
-        "La video a bien été supprimée"
+        'success', "La video a bien été supprimée"
         );
         
         return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
