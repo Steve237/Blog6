@@ -1,14 +1,14 @@
-    $('#add-video').click(function() {
+    $("#add-video").click(function() {
         // Je récupère le numéro des futurs champs que je vais créer
-        const index = +$('#widgets-counter').val();
+        const index = +$("#widgets-counter").val();
 
         // Je récupère le prototype des entrées
-        const tmpl = $('#add_figure_videos').data('prototype').replace(/__name__/g, index);
+        const tmpl = $("#add_figure_videos").data('prototype').replace(/__name__/g, index);
 
         // J'injecte ce code au sein de la div
-        $('#add_figure_videos').append(tmpl);
+        $("#add_figure_videos").append(tmpl);
 
-        $('#widgets-counter').val(index + 1);
+        $("#widgets-counter").val(index + 1);
 
         // Je gère le bouton supprimer
         handleDeleteVideos();
@@ -26,9 +26,9 @@
 
     function updateCounterVideo() {
 
-        const count = +$('#add_figure_videos div.form-group').length;
+        const count = +$("#add_figure_videos div.form-group").length;
 
-        $('#widgets-counter').val(count);
+        $("#widgets-counter").val(count);
     }
 
 
