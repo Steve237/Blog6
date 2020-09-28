@@ -85,7 +85,7 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/activation/{token}", name="activation")
      */
-    public function activation($token, UsersRepository $userRepo, Request $request, EntityManagerInterface $objectManager) {
+    public function activation($token, UsersRepository $userRepo, EntityManagerInterface $objectManager) {
     
         // On vérifie si un utilisateur a ce token
         $users = $userRepo->findOneBy(['activation_token' => $token]);
@@ -196,9 +196,9 @@ class AuthentificationController extends AbstractController
         
         
         
-        } else {
+        } 
             
             return $this->render('admin_secu/newpass.html.twig', ['token' => $token]);
-        }
+        
     }
 }
