@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ImageRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
 
 
 /**
@@ -25,6 +27,12 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     * maxSize="10000k",
+     * maxSizeMessage="Le fichier excède 10000Ko.",
+     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
+     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
+     *)
      */
     private $imageFigure;
 
@@ -89,7 +97,7 @@ class Image
         
         if($this->imageFile instanceof UploadedFile){
 
-            $this->updated_at = new \DateTime('Now');
+            $this->updated_at = new \DateTime();
         }
         
         return $this;

@@ -12,28 +12,41 @@
             {% endif %}
             
             {% if app.user %}
-            <div class="imagetopedit">
-                <a href="{{path('modification_imageTop', {'id': figures.id})}}">
-                    <button type="button" class="btn btn-outline-primary">
-                        <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                        </svg>
-                    </button>
-                </a>
-            </div>
+                <div class="imagetopedit">
+                    <a href="{{path('modification_imageTop', {'id': figures.id})}}">
+                        <button type="button" class="btn btn-outline-primary">
+                            <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
                 
-                <a href="{{path('delete_imagetop', {'id': figures.id})}}">
-                <button type="button" class="btn btn-outline-danger imagetopdelete">
-                    <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-                </a>
+                {% if figures.imageTop is not null %}
+            
+                    <a href="{{path('delete_imagetop', {'id': figures.id})}}">
+                        <button type="button" class="btn btn-outline-danger imagetopdelete">
+                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </a>
                 {% endif %}
+            {% endif %}
         
 
             <div class="card-body"> 
+                
+                {% for label, messages in app.flashes %}
+
+                    <div class="alert alert-{{ label }} valid-creation">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
                 
                 <button class="btn btn-primary mx-auto d-block d-md-none" type="button" id="togg1">
                     Afficher/Masquer
@@ -41,91 +54,91 @@
                 <div id="d1">
 
 
-                <div class="row">
+                    <div class="row">
                     
         
-                    {% for image in figures.images %}
-                    <div class="col-md-4 bodypost">
-                        <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top image-height" alt="figure_snowboard"></a>
-                        <div class="row">
-                            <div class="col-md-2">
-                        <a href="{{path('update_image', {'idimage':image.id, 'id':figures.id})}}">
-                            <button type="button" class="btn btn-outline-primary">
-                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                                </svg>
-                            </button>
-                        </a>
-                        </div>
+                        {% for image in figures.images %}
+                            <div class="col-md-4 bodypost">
+                                <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top image-height" alt="figure_snowboard"></a>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <a href="{{path('update_image', {'idimage':image.id, 'id':figures.id})}}">
+                                            <button type="button" class="btn btn-outline-primary">
+                                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </button>
+                                        </a>
+                                    </div>
 
-                        <a href="{{path('image_delete', {'idimage':image.id, 'id':figures.id})}}">
-                        <button type="button" class="btn btn-outline-danger imagedelete" onclick="return confirm('Confirmer la suppression?')">
-                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                        </a>
+                                    <a href="{{path('image_delete', {'idimage':image.id, 'id':figures.id})}}">
+                                        <button type="button" class="btn btn-outline-danger imagedelete" onclick="return confirm('Confirmer la suppression?')">
+                                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    </div>
-                    {% endfor %}
-                </div>
             
-                <div class="row">
+                    <div class="row">
                 
-                    {% for video in figures.videos %}
-                    <div class="col-md-4 bodypost">
-                        <div class="videoconteneur">
-                            <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <a href="{{path('update_video', {'idvideo':video.id, 'id':figures.id})}}">
-                            <button type="button" class="btn btn-outline-primary">
-                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                                </svg>
-                            </button>
-                        </a>
-                        </div>
+                        {% for video in figures.videos %}
+                            <div class="col-md-4 bodypost">
+                                <div class="videoconteneur">
+                                    <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <a href="{{path('update_video', {'idvideo':video.id, 'id':figures.id})}}">
+                                            <button type="button" class="btn btn-outline-primary">
+                                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </button>
+                                        </a>
+                                    </div>
 
-                        <a href="{{path('video_delete', {'idvideo':video.id, 'id':figures.id})}}">
+                                    <a href="{{path('video_delete', {'idvideo':video.id, 'id':figures.id})}}">
 
-                            <button type="button" class="btn btn-outline-danger videodelete" onclick="return confirm('Confirmer la suppression?')">
-                                <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                                </svg>
-                            </button>
-                        </a>
+                                        <button type="button" class="btn btn-outline-danger videodelete" onclick="return confirm('Confirmer la suppression?')">
+                                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                    </a>
                     
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+
+                                var url = "{{video.videoName}}";
+                                var id = url.split("?v=")[1]; //sGbxmsDFVnE
+
+                                var embedlink = "http://www.youtube.com/embed/" + id;
+
+                                var ytube1 = document.getElementsByClassName("myIframe");
+
+                                ytube1[{{loop.index0}}].src = embedlink;
+
+                            </script>
+                        {% endfor %} 
                     </div>
-                    </div>
-
-                    <script type="text/javascript">
-
-                        var url = "{{video.videoName}}";
-                        var id = url.split("?v=")[1]; //sGbxmsDFVnE
-
-                        var embedlink = "http://www.youtube.com/embed/" + id;
-
-                        var ytube1 = document.getElementsByClassName("myIframe");
-
-                        ytube1[{{loop.index0}}].src = embedlink;
-
-                    </script>
-                    {% endfor %} 
                 </div>
-            </div>
             </div>
             <div class="editform col-lg-12 col-md-12 col-sm-12 col-12">
                 {{form_start(form)}}
                     {{form_widget(form)}}
-                    <input type="hidden" id="widgets-counter" value="0">
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-6">Enregistrer</button>
-                        <button type="submit" class="btn btn-danger col-lg-4 col-md-4 col-sm-6 col-6">Supprimer</button>
-                    </div>
+                        <input type="hidden" id="widgets-counter" value="0">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-6">Enregistrer</button>
+                            <button type="submit" class="btn btn-danger col-lg-4 col-md-4 col-sm-6 col-6">Supprimer</button>
+                        </div>
                 {{form_end(form)}}
             </div>
         </div>   

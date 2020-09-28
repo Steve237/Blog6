@@ -18,7 +18,7 @@ class InscriptionType extends AbstractType
         $builder
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
-            ->add('avatar', FileType::class, ['required' => false])
+            ->add('imageFile', FileType::class, ['required' => false])
             ->add('password', PasswordType::class)
             ->add('verifpass', PasswordType::class)
         ;

@@ -4,21 +4,21 @@
 
 {% block body %}
 
-<div class="row">
-   <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+   <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-12">
       
-      <div class="contentform">
-         {% for label, messages in app.flashes %}
-            <div class="alert alert-success valid-creation">
-               {% for message in messages %}
-                  <p>{{ message | raw }}</p>
-               {% endfor %}
-            </div>
-         {% endfor %}
-         <h1 class="titleform">Formulaire d'inscription</h1>
+         <div class="contentform">
+            {% for label, messages in app.flashes %}
+               <div class="alert alert-success valid-creation">
+                  {% for message in messages %}
+                     <p>{{ message | raw }}</p>
+                  {% endfor %}
+               </div>
+            {% endfor %}
+            <h1 class="titleform">Formulaire d'inscription</h1>
    
-         <div class="formstyle">
-            {{form_start(form)}} 
+            <div class="formstyle">
+               {{form_start(form)}} 
 
                <div class="form-group">
                   {{form_row(form.username, {"attr" : {"placeholder":"Saisissez votre pseudo"}, "label":"Pseudo"})}} 
@@ -27,7 +27,7 @@
                   {{form_row(form.email, {"attr" : {"placeholder":"Saisissez votre email"}, "label":"Email"})}} 
                </div>
                <div class="form-group">
-                  {{form_row(form.avatar)}} 
+                  {{form_row(form.imageFile)}} 
                </div>
                <div class="form-group">
                   {{form_row(form.password, {"attr" : {"placeholder":"Saisissez votre mot de passe"}, "label":"Mot de passe"})}} 
@@ -37,9 +37,9 @@
                </div>
                {{form_widget(form)}}
                   <input type="submit" class="btn btn-primary" value="Valider">
-            {{form_end(form)}} 
+               {{form_end(form)}} 
+            </div>
          </div>
       </div>
    </div>
-</div>
 {% endblock %}

@@ -121,7 +121,7 @@ class BackendController extends AbstractController
                 "L'image a bien été modifié"
                 );
                 
-            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
 
 
         }
@@ -155,7 +155,7 @@ class BackendController extends AbstractController
                 "La vidéo a bien été modifié"
                 );
                 
-            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
         }
         return $this->render('figures/updatevideo.html.twig', [
             "figures" =>$figures,
@@ -198,7 +198,7 @@ class BackendController extends AbstractController
         'success', "L'image a bien été supprimée"
         );
         
-        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
 
     }
 
@@ -218,7 +218,7 @@ class BackendController extends AbstractController
         'success', "La video a bien été supprimée"
         );
         
-        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
     }
 
     /**
@@ -235,7 +235,7 @@ class BackendController extends AbstractController
             $objectManager->persist($figures);
             $objectManager->flush();
             
-            return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
 
         }
         return $this->render('figures/modifImage.html.twig', [
@@ -259,7 +259,7 @@ class BackendController extends AbstractController
         "L'image a bien été supprimée"
         );
         
-        return $this->redirectToRoute('figure',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
 
     }
 }

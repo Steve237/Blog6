@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UsersRepository;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 
@@ -80,11 +80,18 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     * maxSize="1000k",
+     * maxSizeMessage="Le fichier excède 1000Ko.",
+     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
+     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
+     * )
      */
     private $avatar;
 
     /**
      * @Vich\UploadableField(mapping="figure_image", fileNameProperty="avatar")
+     * @Assert\NotBlank(message="Vous devez ajouter une image de profil")
      * @Assert\File(
      * maxSize="1000k",
      * maxSizeMessage="Le fichier excède 1000Ko.",
