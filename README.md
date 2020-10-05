@@ -27,7 +27,7 @@ Pour l'importation du projet sur votre pc l'installation de GIT est nécessaire,
     
 Dès que GIT sera installé, pour importer le projet il faudra vous placer, via la console, dans le dossier de votre choix puis lancer la commande suivante :
 
-    - git clone https://github.com/DamienRiviere/SnowTricks.git
+    - https://github.com/Steve237/Blog6.git
     
 Le projet sera alors cloné dans le répertoire que vous avez choisi.
 
