@@ -43,7 +43,7 @@ Afin de pouvoir exécuter correctement le projet, il vous sera indispensable de 
 
 ## Création de la base de données
 
-Créez la base de données de l'application en tapant la commande ci-dessous : 
+Après avoir renseigné les identifiants de connexion à votre base de données dans le fichier .env, vous devez créer la base de données de l'application en tapant la commande ci-dessous : 
 
     - php bin/console doctrine:database:create
     
