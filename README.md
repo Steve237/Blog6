@@ -63,6 +63,7 @@ L'url pour accéder au projet apparaîtra alors dans la console, il suffira de l
 
 En ce qui concerne la qualité du code, Codacy nous a décerné le grade A : 
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8da81425fcc7493daa3c9b930810e0a9)](https://app.codacy.com/gh/Steve237/Blog6?utm_source=github.com&utm_medium=referral&utm_content=Steve237/Blog6&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0e42332379984ac5a54d6b7ac9f3345b)](https://www.codacy.com/gh/Steve237/Blog6/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Steve237/Blog6&amp;utm_campaign=Badge_Grade)
 
 Un lien vers l'analyse Codacy : 
