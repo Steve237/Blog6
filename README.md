@@ -53,7 +53,7 @@ Puis lancer la migration pour créer les tables dans la base de données :
 
 ## Lancement du serveur
 
-Vous pouvez lancer le serveur via la commande suivante : 
+La base de donnée étant entièrement crée, incluant toutes les tables du projet, vous pouvez lancer le serveur via la commande suivante : 
 
     - php bin/console server:run
 
