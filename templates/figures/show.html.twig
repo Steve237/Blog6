@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Figure{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card mb-3 col-lg-12 col-sm-12 col-md-12 col-12 blocktrick">
+            {% if figures.imageTop is not null %}
+                <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+            {% else %}
+                <img src="{{asset('img/figure/figuredefault.jpg')}}" class="card-img-top imagetopsize" alt="figure_snowboard">
+            {% endif %}
+            
+            {% if app.user %}
+                <div class="imagetopedit">
+                    <a href="{{path('modification_imageTop', {'id': figures.id})}}">
+                        <button type="button" class="btn btn-outline-primary">
+                            <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+                
+                {% if figures.imageTop is not null %}
+                    <a href="{{path('delete_imagetop', {'id': figures.id})}}">
+                        <button type="button" class="btn btn-outline-danger imagetopdelete">
+                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </a>
+                {% endif %}
+            {% endif %}   
+        
+
+            <div class="card-body"> 
+                {% for label, messages in app.flashes %}
+
+                    <div class="alert alert-{{ label }} valid-creation">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
+                
+                <button class="btn btn-primary mx-auto d-block d-md-none" type="button" id="togg1">
+                    Afficher/Masquer
+                </button>
+                
+
+                <div id="d1">
+                    <div class="row">
+                        {% for image in figures.images %}
+                            <div class="col-md-4 bodypost">
+                                <img src="{{asset('img/figure/' ~ image.imageFigure)}}" class="card-img-top image-height" alt="figure_snowboard"></a>
+                            </div>
+                        {% endfor %}
+                
+                    </div>
+            
+                    <div class="row">
+                
+                        {% for video in figures.videos %}
+                            <div class="col-md-4 bodypost">
+                                <div class="videoconteneur">
+                                    <iframe class="myIframe" height="300" width="335" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+
+                                var url = "{{video.videoName}}";
+                                var id = url.split("?v=")[1]; //sGbxmsDFVnE
+
+                                var embedlink = "http://www.youtube.com/embed/" + id;
+
+                                var ytube1 = document.getElementsByClassName("myIframe");
+
+                                ytube1[{{loop.index0}}].src = embedlink;
+
+                            </script>
+                        {% endfor %} 
+                    </div>
+                </div>
+            </div>
+            <div class="editform col-lg-12 col-md-12 col-sm-12 col-12">
+                
+                <h2 class="card-title figuretitle">{{figures.nomFigure}}</h2>
+                <div class="block-description">
+                    <p class="card-text info-description">{{figures.description}}</p>
+                </div>
+                <div class="infoarticle row">
+                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="category">Catégorie : {{figures.groupe.libelle}}</span></p>
+                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 info"><span class="date"> Parution: {{figures.updatedAt|date('d-m-Y')}}</span></p>
+                </div>
+            
+                {% if app.user %}
+                    <div class="form-group">
+                        {{form_start(form)}}
+                            {{form_widget(form)}}
+                            <button type="submit" class="btn btn-primary mb-2">Laissez un commentaire</button>
+                        {{form_end(form)}}
+                    </div>
+                {% else   %}
+                    <p>Connectez vous pour laisser un commentaire</p>
+                {% endif %}
+
+                {% if app.user %}
+            
+                    <h3 class="comment-title">Liste des commentaires</h3>
+                    <section id="comments">
+                        {% if figures.comments is not null %}
+                            {% for comment in figures.comments | slice(0,5)  %}
+                                <div class="commentstyle">
+                                    <li class="media">
+                                        <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
+                                        <div class="media-body">
+                                            <h5 class="mt-0 mb-1">{{ comment.user.username }} a écrit:</h5>
+                                            {{ comment.content }}
+                                            <div>Date de publication: {{comment.createdAt|date('d-m-Y')}}</div>
+                                        </div>
+                                    </li>
+                                </div>
+                                {% else %}
+                                    <p>Aucun commentaire n'a été posté, soyez le premier à commenter.</p>
+                            {% endfor %}
+                        {% endif %}
+                    </section>
+                {% endif %}
+            </div>
+
+            {% if app.user %}
+                {% if figures.comments is not null %}
+                    {% if figures.comments is not null %}
+                        <div class="row text-center">
+                            <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+

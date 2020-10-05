@@ -1,0 +1,671 @@
+    .imagesize {
+
+        height:300px;
+        width:100%;
+    }   
+
+    .bodypost {
+
+        margin-bottom:20px;
+    
+    }
+
+    .videoconteneur {
+        position:relative;
+        padding-bottom:56.25%;
+        height:0;
+        overflow:hidden;
+    }
+
+    .videoconteneur iframe, .videoconteneur object, .videoconteneur embed {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        }
+        
+
+
+    #listefigure {
+        text-align:center;
+        margin-top : 20px;
+    }
+
+    .titreform {
+
+        margin-top: 100px;
+        text-align:center;
+
+    }
+
+    .imagetopsize {
+
+   
+        height:600px;
+    }
+
+
+    .blockdetails {
+
+        margin-top:-500px;
+
+
+    }
+
+    .updateimagetop {
+
+        text-align:center;
+        margin-top:50px
+    }
+
+    .updateimageform {
+
+        margin-top:20px;
+
+
+    }
+
+
+    .valid-creation {
+
+        margin-top: 50px;
+
+    }
+
+    .conteneur
+    {
+    display: flex;
+    }
+
+    .avatarsize
+    {
+        vertical-align: middle;
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+    }
+
+    .addbutton
+    {
+        width:100%;
+        margin:auto;
+
+    }
+
+    .contentform 
+    {
+
+        width:600px;
+        margin:auto;
+
+    }
+
+    .titleform {
+
+        text-align:center;
+        margin-top:50px;
+        color:red;
+
+    }
+
+    .formstyle
+    {
+
+        padding:50px
+
+    }
+
+
+    .recoverypasslink 
+    {
+        color:black;
+    }
+
+    .commentstyle
+    {
+        border:solid 1px black;
+        padding:10px;
+        margin-bottom:15px
+    }
+
+    .editform
+    {
+
+        width:800px;
+        margin:auto;
+        margin-bottom:80px;
+
+    }
+
+    .buttonposition
+    {
+
+        position:absolute;
+        right:152px
+
+    }
+
+    .cardsize
+    {
+
+        height:550px;
+        margin-top:5px;
+
+    }
+
+    .date {
+
+        border:1px solid black;
+        padding:5px;
+    }
+
+    .category {
+
+        border:1px solid black;
+        margin-bottom:3px;
+        padding:5px;
+    }
+
+    .info {
+
+        text-align:center;
+        padding:3px;
+
+    }
+
+    .videoupdate {
+
+        position:absolute;
+        left:15px;
+
+    }
+
+    .videodelete {
+
+        position:absolute;
+        left:60px;
+
+    }
+
+    .imagedelete {
+
+        position:absolute;
+        left:60px
+
+
+    }
+
+    .buttonvideo {
+
+        width:85px;
+    }
+
+    .infoarticle{
+
+        margin-bottom:20px;
+        margin-top:5px;
+    }
+
+
+    .imagetopedit {
+
+        position:absolute;
+        top:30px;
+        right:80px;
+
+
+    }
+
+    .imagetopdelete {
+
+        position:absolute;
+        top:30px;
+        right:40px;
+        margin-right:-10px
+    }
+
+    .buttonedit {
+
+
+        position:absolute;
+        left:5px;
+        bottom:5px
+    }
+
+    .buttondelete {
+
+        position:absolute;
+        left:50px; 
+        bottom:5px;
+    }
+
+    .scrollbutton
+    {
+
+        position:absolute;
+        right:1px;
+        bottom:3px;
+    }
+
+    .blocktrick
+    {
+
+        margin-top:20px;
+
+
+    }
+
+    .border {
+
+        background-color:red;
+
+    }
+
+
+@media screen and (min-width: 320px) and (max-width: 400px) {
+    
+    .publicationdate {
+
+        border:1px solid black;
+
+        
+    }
+
+    .category {
+
+        border:1px solid black;
+        margin-bottom:3px;
+    }
+
+    .imagesize {
+
+        height:200px;
+        width:250px;
+    }
+  
+
+    .cardsize
+    {
+
+        height:550px;
+        width:250px;
+        margin:auto;
+        margin-top:5px;
+       
+
+    }
+
+    #listefigure {
+
+        text-align:center;
+        margin-top : 20px;
+        text-decoration:underline;
+       
+       
+       }
+
+    .scrollbutton
+    {
+
+        position:absolute;
+        right:1px;
+        bottom:80px;
+    }
+
+    /* Place the navbar at the bottom of the page, and make it stick */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.navigation {
+
+
+    margin-bottom:80px;
+
+}
+
+#loadMoreComments {
+
+    margin-bottom:90px;
+
+
+}
+
+
+    .mobilenav{
+
+    font-size:small;
+    }
+
+
+}
+
+.info-post {
+
+    text-align:center;
+    font-size:medium
+
+}
+
+.block-info-post {
+
+    margin-bottom:5px;
+
+}
+
+.block-description {
+
+    border: solid 0.5px black;
+    height:350px;
+}
+
+.info-description {
+
+    text-align:justify;
+    padding:50px;
+}
+
+.figuretitle {
+
+    text-align:center;
+    text-decoration:underline
+    
+}
+
+.detail-trick {
+
+
+    margin-top:100px
+
+}
+
+.delete-post {
+
+
+    position:absolute;
+    top:30px;
+    right:40px;
+    margin-right:-10px;
+
+}
+
+.comment-title {
+
+    margin-top:40px;
+
+}
+
+.image-height {
+
+    height:300px;
+
+
+}
+
+@media screen and (max-width: 320px) {
+
+    .publicationdate {
+
+        border:1px solid black;
+        
+    }
+
+    .category {
+
+        border:1px solid black;
+        margin-bottom:3px;
+    }
+    
+    
+    .imagesize {
+
+        height:200px;
+        width:200px;
+    }
+  
+
+    .cardsize
+    {
+
+        height:550px;
+        width:200px;
+        margin:auto;
+        margin-top:5px;
+       
+
+    }
+
+
+    #listefigure {
+
+        text-align:center;
+        margin-top : 20px;
+        text-decoration:underline;
+       
+       
+       }
+
+    .scrollbutton
+    {
+
+        position:absolute;
+        right:1px;
+        bottom:80px;
+    }
+
+    /* Place the navbar at the bottom of the page, and make it stick */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.navigation {
+
+
+    margin-bottom:80px;
+
+}
+
+#loadMoreComments {
+
+    margin-bottom:90px;
+
+}
+
+    .mobilenav{
+
+    font-size:small;
+    }
+
+}
+
+
+@media screen and (min-width: 401px) and (max-width: 575px) {
+
+
+    .category {
+
+        border:solid 1px black;
+        margin-bottom:3px;
+
+    }
+
+    .publicationdate {
+
+        border:solid 1px black;
+
+    }
+    
+    
+    .imagesize {
+
+        height:250px;
+        width:350px;
+    }
+  
+
+    .cardsize
+    {
+
+        height:650px;
+        width:350px;
+        margin:auto;
+        margin-top:10px;
+       
+
+    }
+
+    #listefigure 
+    {
+
+        text-align:center;
+        margin-top : 20px;
+        text-decoration:underline;
+       
+       
+    }
+
+    .scrollbutton
+    {
+        position:absolute;
+        right:10px;
+        bottom:100px;
+    }
+
+
+     /* Place the navbar at the bottom of the page, and make it stick */
+    .navbar {
+        background-color: #333;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+  
+    /* Style the links inside the navigation bar */
+    .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+  
+    /* Change the color of links on hover */
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+  
+    /* Add a color to the active/current link */
+    .navbar a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+  
+  
+    .navigation {
+        margin-bottom:80px;
+    }
+
+    #loadMoreComments {
+        margin-bottom:90px;
+    }
+
+    
+    .mobilenav{
+
+        font-size:small;
+    
+    }
+}
+
+
+/* Hover effects */
+.hover {
+  transition: -webkit-transform 0.3s ease;
+}
+.hover:hover {
+  transform: scale(1.01, 1.01);
+}
+
+.imageecran{
+  height: 100vh;
+  min-height: 375px;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+
+    #d1 {
+
+        display:none;
+        
+    }
+}
+
+
+.errorblock {
+
+    margin-top : 150px;
+
+
+}
