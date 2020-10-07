@@ -43,7 +43,7 @@ Afin de pouvoir exécuter correctement le projet, il vous sera indispensable de 
 
 ## Création de la base de données
 
-Vous devez créer une base de données dont le nom est conforme à celui que vous avez renseigné dans le fichier .env puis y importer le fichier blog6.sql présent à la racine du projet, vous disposerez alors de toutes les tables du projet: 
+Vous devez créer une base de données dont le nom est conforme à celui que vous avez renseigné dans le fichier .env puis y importer le fichier blogsnow.sql présent à la racine du dossier zip qu'on vous a transmis, vous disposerez alors de toutes les tables du projet: 
 
 ## Lancement du serveur
 
