@@ -13,9 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
-
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @Vich\Uploadable
