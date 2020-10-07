@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -37,7 +38,7 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, minMessage="la description doit contenir au moins 5 caractères!")
+     * @Assert\Length(min=5, max=255, minMessage="la description doit contenir au moins 5 caractères!", maxMessage="255 caractères max autorisés")
      * @Assert\NotBlank
     */
     private $description;
@@ -63,12 +64,7 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\File(
-     * maxSize="1000k",
-     * maxSizeMessage="Le fichier excède 1000Ko.",
-     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
-     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
-     * )
+     *
     */
     private $imageTop;
 
@@ -80,6 +76,7 @@ class Figures
      * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
      * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
      * )
+     * @Assert\NotBlank(message="Veuillez ajouter une image")
      */
     private $imageFile;
 

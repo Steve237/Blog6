@@ -80,12 +80,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\File(
-     * maxSize="1000k",
-     * maxSizeMessage="Le fichier excède 1000Ko.",
-     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
-     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
-     * )
+     * 
      */
     private $avatar;
 
