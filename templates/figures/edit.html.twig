@@ -3,7 +3,7 @@
 {% block title %}Figure{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container updatesection">
         <div class="card mb-3 col-lg-12 col-sm-12 col-md-12 col-12 blocktrick">
             {% if figures.imageTop is not null %}
                 <img src="{{asset('img/figure/' ~ figures.imageTop)}}" class="card-img-top imagetopsize" alt="figure_snowboard">
@@ -137,7 +137,7 @@
                         <input type="hidden" id="widgets-counter" value="0">
                         <div class="row">
                             <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-6">Enregistrer</button>
-                            <button type="submit" class="btn btn-danger col-lg-4 col-md-4 col-sm-6 col-6">Supprimer</button>
+                            <a href="{{path('figure_delete', {'id': figures.id})}}" class="col-lg-4 col-md-4 col-sm-6 col-6"><button class="btn btn-danger">Supprimer</button></a>
                         </div>
                 {{form_end(form)}}
             </div>
