@@ -43,17 +43,11 @@ Afin de pouvoir exécuter correctement le projet, il vous sera indispensable de 
 
 ## Création de la base de données
 
-Après avoir renseigné les identifiants de connexion à votre base de données dans le fichier .env, vous devez créer la base de données de l'application en tapant la commande ci-dessous : 
-
-    - php bin/console doctrine:database:create
-    
-Puis lancer la migration pour créer les tables dans la base de données :
-
-    - php bin/console doctrine:migrations:migrate    
+Vous devez créer une base de données dont le nom est conforme à celui que vous avez renseigné dans le fichier .env puis y importer le fichier blog6.sql présent à la racine du projet, vous disposerez alors de toutes les tables du projet: 
 
 ## Lancement du serveur
 
-La base de donnée étant entièrement crée, incluant toutes les tables du projet, vous pouvez lancer le serveur via la commande suivante : 
+La base de donnée étant entièrement crée, incluant toutes les tables du projet, vous pouvez lancer le serveur via la commande suivante pour executer le projet : 
 
     - php bin/console server:run
 
