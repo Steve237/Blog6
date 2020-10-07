@@ -13,9 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
-
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @Vich\Uploadable
@@ -80,6 +77,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
      */
     private $avatar;
 
