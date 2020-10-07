@@ -27,12 +27,6 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\File(
-     * maxSize="10000k",
-     * maxSizeMessage="Le fichier excède 10000Ko.",
-     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
-     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
-     *)
      */
     private $imageFigure;
 
