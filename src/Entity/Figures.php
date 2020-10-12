@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -18,6 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  fields={"nomFigure"},
  *  message="Une autre figure possède déjà ce titre, merci de le modifier"
  * )
+ * @ORM\HasLifecycleCallbacks
  */
 class Figures
 {
@@ -37,7 +41,7 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, minMessage="la description doit contenir au moins 5 caractères!")
+     * @Assert\Length(min=5, max=255, minMessage="la description doit contenir au moins 5 caractères!", maxMessage="255 caractères max autorisés")
      * @Assert\NotBlank
     */
     private $description;
@@ -63,6 +67,7 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
     */
     private $imageTop;
 
@@ -86,6 +91,30 @@ class Figures
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="figure", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * Permet d'initialiser le slug
+     * 
+     * @ORM\PrePersist
+     * @Orm\PreUpdate
+     * @return void
+     * 
+     */
+    public function addSlug() {
+
+        if(empty($this->slug)) {
+
+            $slugify = new Slugify();
+            
+            $this->slug = $slugify->slugify($this->nomFigure);
+        }
+
+    }
 
     public function getImageFile(): ?File
     {
@@ -266,6 +295,18 @@ class Figures
                 $comment->setFigure(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
