@@ -13,7 +13,7 @@
             
             {% if app.user %}
                 <div class="imagetopedit">
-                    <a href="{{path('modification_imageTop', {'id': figures.id})}}">
+                    <a href="{{path('modification_imageTop', {'slug': figures.slug})}}">
                         <button type="button" class="btn btn-outline-primary">
                             <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
@@ -24,7 +24,7 @@
                 </div>
                 
                 {% if figures.imageTop is not null %}
-                    <a href="{{path('delete_imagetop', {'id': figures.id})}}">
+                    <a href="{{path('delete_imagetop', {'slug': figures.slug})}}">
                         <button type="button" class="btn btn-outline-danger imagetopdelete">
                             <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
@@ -145,4 +145,31 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+{{ parent()}}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    click = 0;
+    function loadMoreComments(event) {
+        event.preventDefault();
+        click++;
+        var start = 5 * click;
+        const url = "{{ path('loadMoreComments', {'id': figures.id})}}/" + start;
+        axios.get(url).then(function(response) {
+            $("#comments").append(response.data);
+        }).catch(function (error) {
+            if (response.status === 403) {
+                window.alert("Vous n'êtes pas autorisé à effectuer cette action !");
+            }
+            else if (response.status === 404) {
+                window.alert("La page appelé n'existe pas");
+            }
+            else {
+                window.alert("Une erreur est survenue !");
+            }
+        });
+    }
+    document.getElementById("loadMoreComments").addEventListener("click", loadMoreComments);
+</script>
+{% endblock %}
 
