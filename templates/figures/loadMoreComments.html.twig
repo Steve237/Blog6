@@ -1,5 +1,5 @@
 {% for comment in figures.comments | slice(start, start + 5)  %}
-    <div style="border:solid 1px black;padding:10px;margin-bottom:15px">
+    <div class="comment-block">
         <li class="media">
             <img src="{{asset('img/figure/' ~ comment.user.avatar)}}" class="mr-3 avatarsize" alt="avatar">
             <div class="media-body">
