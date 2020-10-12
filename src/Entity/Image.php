@@ -6,15 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ImageRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
-
-
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  * @Vich\Uploadable
+ * 
 */
 class Image
 {
@@ -38,6 +37,7 @@ class Image
      * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
      * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
      * )
+     * @Assert\NotBlank(message="veuillez ajouter une image")
     */
     private $imageFile;
 
