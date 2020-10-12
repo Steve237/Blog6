@@ -59,5 +59,5 @@ En ce qui concerne la qualité du code, Codacy nous a décerné le grade A :
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0e42332379984ac5a54d6b7ac9f3345b)](https://www.codacy.com/gh/Steve237/Blog6/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Steve237/Blog6&amp;utm_campaign=Badge_Grade)
 
-Un lien vers l'analyse Codacy : 
+Un lien vers l'analyse Codacy :
 https://app.codacy.com/gh/Steve237/Blog6/dashboard?branch=master
