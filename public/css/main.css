@@ -683,3 +683,9 @@ margin-bottom:130px;
 
 }
 
+.comment-block {
+
+border:solid 1px black;
+padding:10px;
+margin-bottom:15px;
+}
