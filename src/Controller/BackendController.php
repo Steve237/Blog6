@@ -66,7 +66,7 @@ class BackendController extends AbstractController
 
     /** 
      * Permet d'afficher le formulaire de modification
-     * @Route("/admin/{id}/update", name="update")
+     * @Route("/admin/update-figure-{slug}", name="update")
      */
     public function update(Figures $figure, Request $request, EntityManagerInterface $entityManager) {
 
@@ -88,7 +88,7 @@ class BackendController extends AbstractController
                     "<strong>La figure a bien été modifié!</strong>"
                 );
 
-                return $this->redirectToRoute('figure',  array('id' => $figure->getId()));
+                return $this->redirectToRoute('figure',  array('slug' => $figure->getSlug()));
         }
 
         return $this->render('figures/edit.html.twig', [
@@ -102,9 +102,9 @@ class BackendController extends AbstractController
     
     /**
      * Permet de modifier l'image de la figure
-     * @Route("/admin/updateimage/{idimage}/figure/{id}", name="update_image", methods="GET|POST")
+     * @Route("/admin/update-image-{idimage}/figure-{slug}", name="update_image", methods="GET|POST")
      * @ParamConverter("image", options={"mapping": {"idimage" : "id"}})
-     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"slug"   : "slug"}})
     */
     public function UpdateImage(Image $image, Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -121,7 +121,7 @@ class BackendController extends AbstractController
                 "L'image a bien été modifié"
                 );
                 
-            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
 
 
         }
@@ -136,9 +136,9 @@ class BackendController extends AbstractController
 
     /**
      * Permet de modifier la video
-     * @Route("/admin/updatevideo/{idvideo}/figure/{id}", name="update_video", methods="GET|POST")
+     * @Route("/admin/update-video-{idvideo}/figure-{slug}", name="update_video", methods="GET|POST")
      * @ParamConverter("video", options={"mapping": {"idvideo" : "id"}})
-     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"slug"   : "slug"}})
     */
     public function UpdateVideo(Video $video, Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -155,7 +155,7 @@ class BackendController extends AbstractController
                 "La vidéo a bien été modifié"
                 );
                 
-            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
         }
         return $this->render('figures/updatevideo.html.twig', [
             "figures" =>$figures,
@@ -168,7 +168,7 @@ class BackendController extends AbstractController
 
     /**
      * Permet de supprimer une annonce
-     * @Route("/admin/{id}/delete", name="figure_delete")
+     * @Route("/admin/delete/{slug}", name="figure_delete")
      * 
     */
     public function delete(Figures $figure, EntityManagerInterface $entityManager): Response
@@ -185,9 +185,9 @@ class BackendController extends AbstractController
 
     /**
      * Permet de supprimer une image
-     * @Route("/admin/delete_image/{idimage}/figure/{id}", name="image_delete")
+     * @Route("/admin/delete_image-{idimage}/figure-{slug}", name="image_delete")
      * @ParamConverter("image", options={"mapping": {"idimage" : "id"}})
-     * @ParamConverter("figures", options={"mapping": {"id"   : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"slug"   : "slug"}})
     */
     public function deleteImage(Image $image, Figures $figures, EntityManagerInterface $entityManager): Response
     {
@@ -198,16 +198,16 @@ class BackendController extends AbstractController
         'success', "L'image a bien été supprimée"
         );
         
-        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
 
     }
 
 
     /**
      * Permet de supprimer une video
-     * @Route("/admin/delete_video/{idvideo}/figure/{id}", name="video_delete")
+     * @Route("/admin/delete-video-{idvideo}/figure-{slug}", name="video_delete")
      * @ParamConverter("video", options={"mapping": {"idvideo" : "id"}})
-     * @ParamConverter("figures", options={"mapping": {"id" : "id"}})
+     * @ParamConverter("figures", options={"mapping": {"slug" : "slug"}})
     */
     public function deleteVideo(Video $video, Figures $figures, EntityManagerInterface $entityManager): Response
     {
@@ -218,12 +218,12 @@ class BackendController extends AbstractController
         'success', "La video a bien été supprimée"
         );
         
-        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
     }
 
     /**
      * Permet de modifier l'image à la une
-     * @Route("/admin/modif/{id}", name="modification_imageTop", methods="GET|POST")
+     * @Route("/admin/update-image-top-{slug}", name="modification_imageTop", methods="GET|POST")
     */
     public function Modification(Figures $figures, Request $request, EntityManagerInterface $objectManager)
     {   
@@ -235,7 +235,7 @@ class BackendController extends AbstractController
             $objectManager->persist($figures);
             $objectManager->flush();
             
-            return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+            return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
 
         }
         return $this->render('figures/modifImage.html.twig', [
@@ -247,7 +247,7 @@ class BackendController extends AbstractController
 
     
     /**
-     * @Route("/admin/{id}/deleteimagetop", name="delete_imagetop")
+    * @Route("/admin/delete-image/{slug}", name="delete_imagetop")
     */
     public function deleteImageTop(Figures $figures, EntityManagerInterface $entityManager): Response
     {  
@@ -259,7 +259,7 @@ class BackendController extends AbstractController
         "L'image a bien été supprimée"
         );
         
-        return $this->redirectToRoute('update',  array('id' => $figures->getId()));
+        return $this->redirectToRoute('update',  array('slug' => $figures->getSlug()));
 
     }
 }
