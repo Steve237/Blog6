@@ -39,7 +39,7 @@ class FrontendController extends AbstractController {
 
     /**
      * Permet d'afficher un article spécifique et les commentaires associés
-     * @Route("/{id}", name="figure")
+     * @Route("/figure-{slug}", name="figure")
      */
     public function show(Figures $figures, Request $request, EntityManagerInterface $entityManager): Response
     {   
@@ -64,7 +64,7 @@ class FrontendController extends AbstractController {
 
     /**
      * Permet de charger plus de commentaires
-     * @Route("/figure/{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
+     * @Route("/figure-{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
      */
     public function loadMoreComments(FiguresRepository $repo, $id, $start = 5)
     {
